@@ -3,12 +3,7 @@ package DBjaja;
 import java.io.IOException;
 import java.nio.file.Paths;
 // import JDBC package
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -98,7 +93,80 @@ public class Phase3 {
 		}
 
 		
-		
+		/* 메뉴 */
+		try {
+			Scanner scanner = new Scanner(System.in);
+			String inputData;
+			
+			while(true) {
+				System.out.println("사용할 기능의 번호를 입력하세요.");
+				System.out.println("1. 회원가입");
+				System.out.println("2. 그룹생성");
+				System.out.println("3. 회원탈퇴");
+				System.out.println("종료 : q");
+				
+				inputData = scanner.nextLine();
+				if (inputData.equals("q")) {
+					break;
+				}
+				
+				switch(inputData) {
+				case "1":
+					String id;
+					String password;
+					String birthday;
+					String name;
+					String profile_photo;
+					
+					System.out.println("id를 입력하세요.");
+					id = scanner.nextLine();
+					System.out.println("비밀번호를 입력하세요.");
+					password = scanner.nextLine();
+					System.out.println("생년월일을 xxxx-xx-xx양식으로 입력하세요.");
+					birthday = scanner.nextLine();
+					System.out.println("이름을 입력하세요.");
+					name = scanner.nextLine();
+					System.out.println("프로필사진 파일경로를 입력하세요.");
+					profile_photo = scanner.nextLine();
+					
+					sql = "INSERT INTO USERS VALUES (" 
+					+ id + ", " + password + ", To_date('" + birthday + "', 'yyyy-mm-dd'), " 
+							+ name + ", " + profile_photo + ")";
+				
+				case "2":
+					String group_id;
+					String createdAt;
+					
+					System.out.println("group id를 입력하세요.");
+					group_id = scanner.nextLine();
+					System.out.println("오늘의 날짜를 xxxx-xx-xx양식으로 입력하세요.");
+					createdAt = scanner.nextLine();
+					System.out.println("캘린더의 비밀번호를 입력하세요.");
+					password = scanner.nextLine();
+					
+					sql = "INSERT INTO USERS VALUES (" 
+							+ group_id + ", " + createdAt + ", " + password + ")";
+				
+				case "3":
+					System.out.println("id를 입력하세요.");
+					id = scanner.nextLine();
+					
+					sql = "DELETE FROM USERS WHERE id = " + id;
+					
+				}
+				
+				stmt.addBatch(sql);
+				stmt.executeBatch();
+				//int [] count = stmt.executeBatch();
+				//System.out.println(count.length + " row inserted.");
+				
+;			}
+			conn.commit();
+			
+		} catch(SQLException ex2) {
+			System.err.println("sql error = " + ex2.getMessage());
+			System.exit(1);
+		}
 		
 		/*
 		// Execute an SQL statement for INSERT
