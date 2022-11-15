@@ -37,7 +37,7 @@ insert into calendar values('톰과제리', To_date('2022-09-10', 'yyyy-mm-dd'),
 insert into calendar values('디비자자', To_date('2022-09-20', 'yyyy-mm-dd'), '0122');
 insert into calendar values('삼총사그룹', To_date('2022-08-01', 'yyyy-mm-dd'), '1234');
 insert into calendar values('최강동기사총사', To_date('2022-08-02', 'yyyy-mm-dd'), '1235');
-insert into calendar values('사총사그룹', To_date('2022-10-16', 'yyyy-mm-dd'), '1234');
+
  
  -- participate
 insert into participate values('아우들', 'hyejjang');
@@ -247,16 +247,16 @@ insert into answer values('321321321', 20220804, '부모님');
 insert into answer values('987654321', 20220805, '무조건 삼겹살');
  
 -- vote
-insert into vote values( 21, '메뉴 정하자~', To_date('2022-10-03', 'yyyy-mm-dd'),21);
-insert into vote values( 22, '언제볼까', To_date('2022-10-10', 'yyyy-mm-dd'),25);
-insert into vote values( 23, '무슨 카페 갈지', To_date('2022-10-18', 'yyyy-mm-dd'),26);
-insert into vote values(11, '방학 여행 where', To_date('2022-09-15', 'yyyy-mm-dd'),11);
-insert into vote values(13, '담주 토에 뭐 할래', To_date('2022-09-20', 'yyyy-mm-dd'),13);
-insert into vote values(43, '다음 회의 언제할까', To_date('2022-10-10', 'yyyy-mm-dd'),43);
-insert into vote values( 1, '오늘 먹을거 투표', To_date('2022-10-16', 'yyyy-mm-dd'),1);
-insert into vote values( 2, '여행갈 나라', To_date('2022-10-16', 'yyyy-mm-dd'),2);
-insert into vote values( 3, '오늘 하루종일 일정', To_date('2022-10-16', 'yyyy-mm-dd'),3);
-insert into vote values( 4, '우리 옷스타일', To_date('2022-10-16', 'yyyy-mm-dd'),4);
+insert into vote values( 21, '메뉴 정하자~', To_date('2022-10-03', 'yyyy-mm-dd'),21, '0701');
+insert into vote values( 22, '언제볼까', To_date('2022-10-10', 'yyyy-mm-dd'),25, '0000');
+insert into vote values( 23, '무슨 카페 갈지', To_date('2022-10-18', 'yyyy-mm-dd'),26, '0000');
+insert into vote values(11, '방학 여행 where', To_date('2022-09-15', 'yyyy-mm-dd'),11, '0123');
+insert into vote values(13, '담주 토에 뭐 할래', To_date('2022-09-20', 'yyyy-mm-dd'),13, '0123');
+insert into vote values(43, '다음 회의 언제할까', To_date('2022-10-10', 'yyyy-mm-dd'),43, '0122');
+insert into vote values( 1, '오늘 먹을거 투표', To_date('2022-10-16', 'yyyy-mm-dd'),1, '1235');
+insert into vote values( 2, '여행갈 나라', To_date('2022-10-16', 'yyyy-mm-dd'),2, '1235');
+insert into vote values( 3, '오늘 하루종일 일정', To_date('2022-10-16', 'yyyy-mm-dd'),3, '1235');
+insert into vote values( 4, '우리 옷스타일', To_date('2022-10-16', 'yyyy-mm-dd'),4, '1235');
 
 -- item
 insert into item values(201, '오므라이스',21);
