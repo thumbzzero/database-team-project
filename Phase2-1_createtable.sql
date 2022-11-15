@@ -63,6 +63,7 @@ vote_key NUMBER NOT NULL,
 vote_name VARCHAR(20) NOT NULL,
 deadline DATE,
 date_Key number not null,
+group_id varchar(20) not null,
 PRIMARY KEY (vote_key)
 );
 
