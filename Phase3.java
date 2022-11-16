@@ -251,6 +251,35 @@ public class Phase3 {
         	}
 
     	}
+		
+	//query 3
+	public static void doTask3(Connection conn, Statement stmt){
+	        ResultSet rs = null;
+
+        	try{
+            		stmt = conn.createStatement();
+            		// 특정 기간의 질문 출력
+            		String sql = "Select question_content" +
+                       			 //from을 이렇게 길게 쓴 이유는??
+                        	     "from (select question_key, question_content from question)"+
+                       		     "where question_key between 20220901 and 20220930";
+            		rs = stmt.executeQuery(sql);
+            		System.out.println("<< query 3 result >>");
+            		System.out.println("question_content");
+            		System.out.println("-----------------------------");
+            		while(rs.next()){
+                		String content = rs.getString(1);
+                		System.out.println(String.format("%s", content));
+            		}
+           		rs.close();
+
+            		System.out.println();
+        		} catch (SQLException e) {
+        			e.printStackTrace();
+        		}
+        
+
+    	}
 		/*
 		// Execute an SQL statement for INSERT
 		try {
