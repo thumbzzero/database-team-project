@@ -215,7 +215,42 @@ public class Phase3 {
 		    		}
 			}//while
 		}
-		
+
+   
+
+	//query 1-1
+    	public static void doTask1_1(Connection conn, Statement stmt){
+   
+        	ResultSet rs = null;
+
+        	try{
+        		@SuppressWarnings("resource")
+				Scanner scan = new Scanner(System.in);
+            	String group_name = scan.nextLine();
+            	stmt = conn.createStatement();
+            	//query1-1
+            	String sql = "Select u.id, u.name" +
+                             "from users u, participate p"+
+                             // 파라미터를 받는 부분
+                             "where p.group_id = ' " +group_name+ " ' " +
+                             "and u.id = p.participant ";
+            	rs = stmt.executeQuery(sql);
+            	System.out.println("<< query 1-1 result >>");
+            	System.out.println("User ID    |User Name");
+            	System.out.println("-----------------------------");
+            	while(rs.next()){
+                	String id = rs.getString(1);
+                	String name = rs.getString(2);
+                	System.out.println(String.format("%-4s|%s", id, name));
+            	}
+            	rs.close();
+
+            	System.out.println();
+        	}catch (SQLException e) {
+        		e.printStackTrace();
+        	}
+
+    	}
 		/*
 		// Execute an SQL statement for INSERT
 		try {
