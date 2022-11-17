@@ -242,16 +242,16 @@ insert into answer values('321321321', 20220804, '부모님');
 insert into answer values('987654321', 20220805, '무조건 삼겹살');
  
 -- vote
-insert into vote values( 21, '메뉴 정하자~', To_date('2022-10-03', 'yyyy-mm-dd'),21, '0701');
-insert into vote values( 22, '언제볼까', To_date('2022-10-10', 'yyyy-mm-dd'),25, '0000');
-insert into vote values( 23, '무슨 카페 갈지', To_date('2022-10-18', 'yyyy-mm-dd'),26, '0000');
-insert into vote values(11, '방학 여행 where', To_date('2022-09-15', 'yyyy-mm-dd'),11, '0123');
-insert into vote values(13, '담주 토에 뭐 할래', To_date('2022-09-20', 'yyyy-mm-dd'),13, '0123');
-insert into vote values(43, '다음 회의 언제할까', To_date('2022-10-10', 'yyyy-mm-dd'),43, '0122');
-insert into vote values( 1, '오늘 먹을거 투표', To_date('2022-10-16', 'yyyy-mm-dd'),1, '1235');
-insert into vote values( 2, '여행갈 나라', To_date('2022-10-16', 'yyyy-mm-dd'),2, '1235');
-insert into vote values( 3, '오늘 하루종일 일정', To_date('2022-10-16', 'yyyy-mm-dd'),3, '1235');
-insert into vote values( 4, '우리 옷스타일', To_date('2022-10-16', 'yyyy-mm-dd'),4, '1235');
+insert into vote values( 21, '메뉴 정하자~', To_date('2022-10-03', 'yyyy-mm-dd'),21, '아우들');
+insert into vote values( 22, '언제볼까', To_date('2022-10-10', 'yyyy-mm-dd'),25, '열쪙');
+insert into vote values( 23, '무슨 카페 갈지', To_date('2022-10-18', 'yyyy-mm-dd'),26, '팀팀');
+insert into vote values(11, '방학 여행 where', To_date('2022-09-15', 'yyyy-mm-dd'),11, '톰과제리');
+insert into vote values(13, '담주 토에 뭐 할래', To_date('2022-09-20', 'yyyy-mm-dd'),13, '톰과제리');
+insert into vote values(43, '다음 회의 언제할까', To_date('2022-10-10', 'yyyy-mm-dd'),43, '디비자자');
+insert into vote values( 1, '오늘 먹을거 투표', To_date('2022-10-16', 'yyyy-mm-dd'),1, '최강동기사총사');
+insert into vote values( 2, '여행갈 나라', To_date('2022-10-16', 'yyyy-mm-dd'),2, '최공동기사총사');
+insert into vote values( 3, '오늘 하루종일 일정', To_date('2022-10-16', 'yyyy-mm-dd'),3, '최강동기사총사');
+insert into vote values( 4, '우리 옷스타일', To_date('2022-10-16', 'yyyy-mm-dd'),4, '최강동기사총사');
 
 -- item
 insert into item values(201, '오므라이스',21);
