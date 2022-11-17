@@ -587,5 +587,50 @@ public class Phase3 {
       }
 
    }
+	
+   // query 7
+   // -- 특정그룹의 특정 key(투표번호)인 투표의 각 항목을 선택한 사람의 수를 추출함
+   // -- 입력받을 것: 그룹이름, 투표이름
+   private static void doTask7(Connection conn, Statement stmt) {
+
+      ResultSet rs = null;
+
+      try {
+         @SuppressWarnings("resource")
+         Scanner scan = new Scanner(System.in);
+         String[] ary = new String[2];
+
+         System.out.println("원하는 그룹의 한 투표에 대한 항목 별 득표 수를 출력하겠습니다.");
+         System.out.println("group id를 입력하세요.");
+         ary[0] = scan.nextLine();
+         System.out.println("투표 key를 입력하세요.");
+         ary[1] = scan.nextLine();
+
+         stmt = conn.createStatement();
+
+         String sql = "select i.item_name as 투표항목, count(*) as 득표수 " + "from item i, vote v, pick p "
+               + "where v.group_id = '" + ary[0] + "'AND v.vote_key =  "+ ary[1]
+               + " AND v.vote_key = i.vote_key AND p.item_key = i.item_key "
+               + "group by i.item_name "
+               + "ORDER BY COUNT(*) DESC";
+
+         rs = stmt.executeQuery(sql);
+         System.out.println("<< query 7 result >>");
+         System.out.println("투표항목    |득표수");
+         System.out.println("------------------------------");
+         while (rs.next()) {
+            String item = rs.getString(1);
+            String cnt = rs.getString(2);
+            System.out.println(String.format("%-11s|%-11s", item, cnt));
+         }
+         rs.close();
+
+         System.out.println();
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+
+
+   }
 
 }
