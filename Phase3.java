@@ -355,6 +355,41 @@ public class Phase3 {
 		}
 
 	}
+	
+	
+	//query 8
+    	private static void doTask8(Connection conn, Statement stmt) {
+
+		ResultSet rs = null;
+
+		try {
+			@SuppressWarnings("resource")
+
+			stmt = conn.createStatement();
+			
+			String sql = "select c.group_id, count(diary_key)" 
+                    			+"from diary d, calendar c, day_record da" 
+					+"where d.date_key = da.date_key AND c.group_id = da.group_id "
+					+"GROUP BY c.GROUP_ID"
+					+"ORDER BY COUNT(DIARY_KEY) DESC;";
+
+			rs = stmt.executeQuery(sql);
+			System.out.println("<< query 8 result >>");
+			System.out.println("Group ID    |Num of diary");
+			System.out.println("------------------------------");
+			while (rs.next()) {
+				String ID = rs.getString(1);
+				String num = rs.getInt(2);;
+				System.out.println(String.format("%-4s|%-11s", ID, num));
+			}
+			rs.close();
+
+			System.out.println();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	// query 9 -union
 	private static void doTask9(Connection conn, Statement stmt) {
@@ -378,7 +413,7 @@ public class Phase3 {
 					+ " where p.group_id = '" + group_id[0] + "'and p.group_id = c.group_id "
 					+ "and u.id = p.participant union select u.id, u.name "
 					+ "from users u, participate p, calendar c where p.group_id = '" + group_id[1]
-					+ "'and p.group_id = c.group_id and u.id = p.participant";
+					+ "and p.group_id = c.group_id and u.id = p.participant";
 
 			rs = stmt.executeQuery(sql);
 			System.out.println("<< query 9 result >>");
