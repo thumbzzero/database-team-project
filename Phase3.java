@@ -108,6 +108,15 @@ public class Phase3 {
 				System.out.println("1. 회원가입");
 				System.out.println("2. 그룹생성");
 				System.out.println("3. 회원탈퇴");
+				System.out.println("4. 특정 그룹의 멤버 조회");
+		    System.out.println("5. 내가 속한 그룹명 조희");
+		    System.out.println("6. 특정 기간의 질문 출력");
+		    System.out.println("7. 2가지 그룹에 모두 속한 멤버의 이름 출력");
+		    System.out.println("8. 현재 투표상황 확인");
+		    System.out.println("9. 답변자가 특정 수 이상인 질문 조희");
+		   	System.out.println("10. 특정 그룹의 특정투표 항목을 선택한 사람 수 출력");
+		    System.out.println("11. 일기를 많이 작성한 그룹 랭킹 확인");
+		    System.out.println("12. 2 그룹 중 하나 이상에 속한 멤버이름 출력");
 				System.out.println("종료 : q");
 				
 				inputData = scanner.nextLine();
