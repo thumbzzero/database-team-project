@@ -3,7 +3,11 @@ package DBjaja;
 import java.io.IOException;
 import java.nio.file.Paths;
 // import JDBC package
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -95,7 +99,6 @@ public class Phase3 {
 
 		
 		/* 메뉴 */
-
 		try {
 			Scanner scanner = new Scanner(System.in);
 			String inputData;
@@ -121,7 +124,7 @@ public class Phase3 {
 					String profile_photo;
 					
 					System.out.println("id를 입력하세요.");
-					id = scanner.nextLine();
+					id = String.valueOf(scanner.nextLine());
 					System.out.println("비밀번호를 입력하세요.");
 					password = scanner.nextLine();
 					System.out.println("생년월일을 xxxx-xx-xx양식으로 입력하세요.");
@@ -131,10 +134,9 @@ public class Phase3 {
 					System.out.println("프로필사진 파일경로를 입력하세요.");
 					profile_photo = scanner.nextLine();
 					
-					sql = "INSERT INTO USERS VALUES (" 
-					+ id + ", " + password + ", To_date('" + birthday + "', 'yyyy-mm-dd'), " 
-							+ name + ", " + profile_photo + ")";
-				
+					sql = "INSERT INTO USERS VALUES ('"+ id + "', '"+ password +"', To_date('" + birthday + "', 'yyyy-mm-dd'), '" 
+							+ name + "', '" + profile_photo + "')";
+					break;
 				case "2":
 					String group_id;
 					String createdAt;
@@ -148,17 +150,17 @@ public class Phase3 {
 					
 					sql = "INSERT INTO USERS VALUES (" 
 							+ group_id + ", " + createdAt + ", " + password + ")";
-				
+					break;
 				case "3":
 					System.out.println("id를 입력하세요.");
 					id = scanner.nextLine();
 					
 					sql = "DELETE FROM USERS WHERE id = " + id;
-					
+					break;
 				}
-				
-				stmt.addBatch(sql);
-				stmt.executeBatch();
+				res = stmt.executeUpdate(sql); 
+				if(res == 0) 
+					System.out.println("insert was successfully created.");
 				//int [] count = stmt.executeBatch();
 				//System.out.println(count.length + " row inserted.");
 				
@@ -173,8 +175,6 @@ public class Phase3 {
 		
 		
 		//query
-		try{
-		
 			Scanner scanner = new Scanner(System.in);
 			String num;
 			
@@ -205,84 +205,77 @@ public class Phase3 {
 		               				//입력받는: 그룹명
 		                				doTask1_1(conn, stmt);
 		            				}
-		            				else //그룹이 두개 이상일때
-		            				{
-		                				doTask1_2(conn, stmt);
-		            				}
-		        				case "3":
-		            					doTask3(conn, stmt);
+		            				//else //그룹이 두개 이상일때
+		            				//{
+		                				//doTask1_2(conn, stmt);
+		            				//}
+		        			case "3":
+		            				doTask3(conn, stmt);
 
 		        				//case 9까지 생성해야함
+		            		
+					}
+		    	}
+	}
+			
 
-		    		}
-			}//while
+	// query 1-1
+	private static void doTask1_1(Connection conn, Statement stmt) {
+
+		ResultSet rs = null;
+
+		try {
+			@SuppressWarnings("resource")
+			Scanner scan = new Scanner(System.in);
+			String group_name = scan.nextLine();
+			stmt = conn.createStatement();
+			// query1-1
+			String sql = "Select u.id, u.name" + "from users u, participate p" +
+			// 파라미터를 받는 부분
+					"where p.group_id = ' " + group_name + " ' " + "and u.id = p.participant ";
+			rs = stmt.executeQuery(sql);
+			System.out.println("<< query 1-1 result >>");
+			System.out.println("User ID    |User Name");
+			System.out.println("-----------------------------");
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String name = rs.getString(2);
+				System.out.println(String.format("%-4s|%s", id, name));
+			}
+			rs.close();
+
+			System.out.println();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-   
+	}
 
-	//query 1-1
-    	public static void doTask1_1(Connection conn, Statement stmt){
-   
-        	ResultSet rs = null;
+	// query 3
+	private static void doTask3(Connection conn, Statement stmt) {
+		ResultSet rs = null;
 
-        	try{
-        		@SuppressWarnings("resource")
-				Scanner scan = new Scanner(System.in);
-            	String group_name = scan.nextLine();
-            	stmt = conn.createStatement();
-            	//query1-1
-            	String sql = "Select u.id, u.name" +
-                             "from users u, participate p"+
-                             // 파라미터를 받는 부분
-                             "where p.group_id = ' " +group_name+ " ' " +
-                             "and u.id = p.participant ";
-            	rs = stmt.executeQuery(sql);
-            	System.out.println("<< query 1-1 result >>");
-            	System.out.println("User ID    |User Name");
-            	System.out.println("-----------------------------");
-            	while(rs.next()){
-                	String id = rs.getString(1);
-                	String name = rs.getString(2);
-                	System.out.println(String.format("%-4s|%s", id, name));
-            	}
-            	rs.close();
+		try {
+			stmt = conn.createStatement();
+			// 특정 기간의 질문 출력
+			String sql = "Select question_content" +
+			// from을 이렇게 길게 쓴 이유는??
+					"from (select question_key, question_content from question)"
+					+ "where question_key between 20220901 and 20220930";
+			rs = stmt.executeQuery(sql);
+			System.out.println("<< query 3 result >>");
+			System.out.println("question_content");
+			System.out.println("-----------------------------");
+			while (rs.next()) {
+				String content = rs.getString(1);
+				System.out.println(String.format("%s", content));
+			}
+			rs.close();
 
-            	System.out.println();
-        	}catch (SQLException e) {
-        		e.printStackTrace();
-        	}
-
-    	}
-		
-	//query 3
-	public static void doTask3(Connection conn, Statement stmt){
-	        ResultSet rs = null;
-
-        	try{
-            		stmt = conn.createStatement();
-            		// 특정 기간의 질문 출력
-            		String sql = "Select question_content" +
-                       			 //from을 이렇게 길게 쓴 이유는??
-                        	     "from (select question_key, question_content from question)"+
-                       		     "where question_key between 20220901 and 20220930";
-            		rs = stmt.executeQuery(sql);
-            		System.out.println("<< query 3 result >>");
-            		System.out.println("question_content");
-            		System.out.println("-----------------------------");
-            		while(rs.next()){
-                		String content = rs.getString(1);
-                		System.out.println(String.format("%s", content));
-            		}
-           		rs.close();
-
-            		System.out.println();
-        		} catch (SQLException e) {
-        			e.printStackTrace();
-        		}
-        
-
-    	}
-	
+			System.out.println();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
