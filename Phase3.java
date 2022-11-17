@@ -267,5 +267,50 @@ public class Phase3 {
 		}
 
 	}
+	
+	private static void doTask4(Connection conn, Statement stmt){
+    	   
+        	ResultSet rs = null;
+
+        	try{
+        		@SuppressWarnings("resource")
+				Scanner scan = new Scanner(System.in);
+        		String[] group_id = new String[2];
+        	
+            	group_id[0] = scan.nextLine();
+            	group_id[1] = scan.nextLine();
+            
+            	stmt = conn.createStatement();
+            	//query1-1
+            	String sql = "Select u.id, u.name" +
+                             "from users u, participate p, calendar c"+
+                             // 파라미터를 받는 부분
+                             "where p.group_id = ' " +group_id[0]+ " ' " +
+                             "and p.group_id = c.group_id " +
+                             "and u.id = p.participant" +
+                             "intersect" +
+                             "select u.id, u.name" +
+                             "from users u, participate p, calendar c" +
+                             "where p.group_id = ' " +group_id[1]+ " ' " +
+                             "and p.group_id = c.group_id " +
+                             "and u.id = p.participant";
+            
+            	rs = stmt.executeQuery(sql);
+            	System.out.println("<< query 4 result >>");
+            	System.out.println("User ID    |User Name");
+            	System.out.println("-----------------------------");
+            	while(rs.next()){
+                	String id = rs.getString(1);
+                	String name = rs.getString(2);
+                	System.out.println(String.format("%-4s|%s", id, name));
+            	}
+            	rs.close();
+
+            	System.out.println();
+        	}catch (SQLException e) {
+        		e.printStackTrace();
+        	}
+
+    	}
 
 }
