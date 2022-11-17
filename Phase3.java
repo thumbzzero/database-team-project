@@ -209,7 +209,6 @@ public class Phase3 {
 					}
 					break;
 				case "5":
-					doTask2(conn, stmt);
 					break;
 				case "6":
 					doTask3(conn, stmt);
@@ -218,19 +217,14 @@ public class Phase3 {
 					doTask4(conn, stmt);
 					break;
 				case "8":
-					doTask5(conn, stmt);
 					break;
 				case "9":
-					doTask6(conn, stmt);
 					break;
 				case "10":
-					doTask7(conn, stmt);
 					break;
 				case "11":
-					doTask8(conn, stmt);
 					break;
 				case "12":
-					doTask9(conn, stmt);
 					break;
 				}
 
@@ -245,38 +239,9 @@ public class Phase3 {
 	}
 
 	// query 1-1
-	private static void doTask1_1(Connection conn, Statement stmt){
-   
-        	ResultSet rs = null;
+	private static void doTask1_1(Connection conn, Statement stmt) {
 
-        	try{
-        		@SuppressWarnings("resource")
-			Scanner scan = new Scanner(System.in);
-            	String group_name = scan.nextLine();
-            	stmt = conn.createStatement();
-            
-            	String sql = "Select u.id, u.name" +
-                             "from users u, participate p"+
-                         	// 파라미터를 받는 부분
-                             "where p.group_id = ' " +group_name+ " ' " +
-                             "and u.id = p.participant ";
-            	rs = stmt.executeQuery(sql);
-            	System.out.println("<< query 1-1 result >>");
-            	System.out.println("User ID    |User Name");
-            	System.out.println("-----------------------------");
-            	while(rs.next()){
-                	String id = rs.getString(1);
-                	String name = rs.getString(2);
-                	System.out.println(String.format("%-10s|%s", id, name));
-            	}
-            	rs.close();
-
-            	System.out.println();
-        	}catch (SQLException e) {
-        		e.printStackTrace();
-        	}
-
-    	}
+	}
 
 	// query 1-2
 	private static void doTask1_2(Connection conn, Statement stmt) {
@@ -284,7 +249,7 @@ public class Phase3 {
 		ResultSet rs = null;
 
 		try {
-			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준)");
+			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준으로)");
 			@SuppressWarnings("resource")
 			Scanner scan = new Scanner(System.in);
 			String group_name = scan.nextLine();
@@ -292,11 +257,12 @@ public class Phase3 {
 			// ArrayList<String> group_name=new
 			// ArrayList<String>(Arrays.asList(total_group_name.split(" ")));
 			stmt = conn.createStatement();
+			// query1-1
 			String sql = "Select distinct u.id, u.name " + "from users u, participate p " +
 			// 파라미터를 받는 부분
 					"where p.group_id in ('" + group_name + "') and u.id = p.participant ";
 			rs = stmt.executeQuery(sql);
-			System.out.println("<< query 1-2 result >>");
+			System.out.println("<< query 1-1 result >>");
 			System.out.println("User ID    |User Name");
 			System.out.println("-----------------------------");
 			while (rs.next()) {
@@ -466,5 +432,44 @@ public class Phase3 {
 		}
 
 	}
+
+	// query 6
+   private static void doTask6(Connection conn, Statement stmt) {
+
+      ResultSet rs = null;
+
+      try {
+         @SuppressWarnings("resource")
+         Scanner scan = new Scanner(System.in);
+         String n;
+
+         System.out.println("답변자가 n명 이상인 질문을 출력하겠습니다.");
+         System.out.println("숫자 n을 입력하세요.");
+         n = scan.nextLine();
+
+         stmt = conn.createStatement();
+
+         String sql = "select q.question_key as q_key, COUNT(*) as 답변자 " + "from question q, answer a "
+               + " where q.question_key=a.question_key "
+               + "group by q.question_key "
+               + "Having Count(*) >= " + n;
+
+         rs = stmt.executeQuery(sql);
+         System.out.println("<< query 6 result >>");
+         System.out.println("질문 key    | 답변자");
+         System.out.println("-----------------------------");
+         while (rs.next()) {
+            String q = rs.getString(1);
+            String p = rs.getString(2);
+            System.out.println(String.format("%-11s|%-11s", q, p));
+         }
+         rs.close();
+
+         System.out.println();
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+
+   }
 
 }
