@@ -157,7 +157,7 @@ public class Phase3 {
 					
 					sql = "DELETE FROM USERS WHERE id = " + id;
 					break;
-				}
+				
 				// query
 				case "4":
 					String group_num;
@@ -196,7 +196,7 @@ public class Phase3 {
 				//int [] count = stmt.executeBatch();
 				//System.out.println(count.length + " row inserted.");
 				
-;			}
+			}
 			conn.commit();
 			
 		} catch(SQLException ex2) {
