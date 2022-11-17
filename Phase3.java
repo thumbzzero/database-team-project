@@ -50,66 +50,69 @@ public class Phase3 {
 			// Create a statement object
 			stmt = conn.createStatement();
 			// Let's execute an SQL statement.
+			Scanner filepath = new Scanner(System.in);
+			System.out.println("이미 db가 구축되었다면 0을 아니라면 create파일의 경로를 입력하시면 table과 insert를 도와드리겠습니다.");
+			System.out.println("\t(create파일의 경로의 예 : C:\\Users\\create.txt)");
+			System.out.print("입력하세요(0 or create파일의 경로) : ");
+			String fpath = filepath.next();
+			if (!(fpath.equals("0"))) {
 
-			for (String tn : tableName) {
-				sql = "DROP TABLE " + tn + " CASCADE CONSTRAINT";
-				try {
-					res = stmt.executeUpdate(sql);
-				} catch (Exception ex) {
-					System.out.println(ex.getMessage());
-				}
-			}
-			if (res == 0)
-				System.out.println("Table was successfully dropped.");
-
-			StringBuffer sb = new StringBuffer();
-			Scanner input = new Scanner(
-					Paths.get("C:\\Users\\hyejj\\eclipse-workspace\\labs\\bin\\DBjaja\\create.txt"));
-			sql = "";
-			int flag=0;
-			while (input.hasNext()) {
-				String str = input.nextLine();
-				if (str.toUpperCase().contains("ALTER")) {
-					sql = str.substring(0, str.length() - 1);
-					stmt.addBatch(sql);
-				}
-				else if (str.toUpperCase().contains("INSERT")) {
-					if (flag==0)
-					{
-						flag=1;
-						try {
-							int[] count = stmt.executeBatch();
-							System.out.println("create table 완료!");
-							// Make the changes permanent
-							conn.commit();
-						} catch (SQLException ex3) {
-							System.err.println("sql error = " + ex3.getMessage());
-							System.exit(1);
-						}
+				for (String tn : tableName) {
+					sql = "DROP TABLE " + tn + " CASCADE CONSTRAINT";
+					try {
+						res = stmt.executeUpdate(sql);
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
 					}
-					sql = str.substring(0, str.length() - 1);
-					stmt.addBatch(sql);
 				}
-				else if (str.contains(";")) {
-					sql += ")";
-					res = stmt.executeUpdate(sql);
-					if (res == 0)
-						System.out.println("Table was successfully created.");
-					sql = "";
-				} else {
-					sql += str;
-				}
-			}
-			try {
-				int[] count = stmt.executeBatch();
-				System.out.println("insert 완료!");
-				// Make the changes permanent
-				conn.commit();
-			} catch (SQLException ex3) {
-				System.err.println("sql error = " + ex3.getMessage());
-				System.exit(1);
-			}
+				if (res == 0)
+					System.out.println("Table was successfully dropped.");
 
+				StringBuffer sb = new StringBuffer();
+				Scanner input = new Scanner(
+						Paths.get(fpath));
+				sql = "";
+				int flag = 0;
+				while (input.hasNext()) {
+					String str = input.nextLine();
+					if (str.toUpperCase().contains("ALTER")) {
+						sql = str.substring(0, str.length() - 1);
+						stmt.addBatch(sql);
+					} else if (str.toUpperCase().contains("INSERT")) {
+						if (flag == 0) {
+							flag = 1;
+							try {
+								int[] count = stmt.executeBatch();
+								System.out.println("create table 완료!");
+								// Make the changes permanent
+								conn.commit();
+							} catch (SQLException ex3) {
+								System.err.println("sql error = " + ex3.getMessage());
+								System.exit(1);
+							}
+						}
+						sql = str.substring(0, str.length() - 1);
+						stmt.addBatch(sql);
+					} else if (str.contains(";")) {
+						sql += ")";
+						res = stmt.executeUpdate(sql);
+						if (res == 0)
+							System.out.println("Table was successfully created.");
+						sql = "";
+					} else {
+						sql += str;
+					}
+				}
+				try {
+					int[] count = stmt.executeBatch();
+					System.out.println("insert 완료!");
+					// Make the changes permanent
+					conn.commit();
+				} catch (SQLException ex3) {
+					System.err.println("sql error = " + ex3.getMessage());
+					System.exit(1);
+				}
+			}
 		} catch (SQLException | IOException ex2) {
 			System.err.println("sql error = " + ex2.getMessage());
 			System.exit(1);
@@ -200,8 +203,7 @@ public class Phase3 {
 					if (group_num.equals("1")) {
 						// 입력받는: 그룹명
 						doTask1_1(conn, stmt);
-					}
-					else //그룹이 두개 이상일때
+					} else // 그룹이 두개 이상일때
 					{
 						doTask1_2(conn, stmt);
 					}
@@ -212,7 +214,7 @@ public class Phase3 {
 					doTask3(conn, stmt);
 					break;
 				case "7":
-					doTask4(conn,stmt);
+					doTask4(conn, stmt);
 					break;
 				case "8":
 					break;
@@ -225,7 +227,7 @@ public class Phase3 {
 				case "12":
 					break;
 				}
-				
+
 			}
 			conn.commit();
 
@@ -236,48 +238,48 @@ public class Phase3 {
 
 	}
 
-		
-
-		// query 1-1
+	// query 1-1
 	private static void doTask1_1(Connection conn, Statement stmt) {
 
-		
 	}
-	//query 1-2
+
+	// query 1-2
 	private static void doTask1_2(Connection conn, Statement stmt) {
 		// TODO Auto-generated method stub
-			ResultSet rs = null;
+		ResultSet rs = null;
 
-			try {
-				System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준으로)");
-				@SuppressWarnings("resource")
-				Scanner scan = new Scanner(System.in);
-				String group_name= scan.nextLine();
-				group_name=group_name.replaceAll(" ", "','");
-				//ArrayList<String> group_name=new ArrayList<String>(Arrays.asList(total_group_name.split(" ")));
-				stmt = conn.createStatement();
-				// query1-1
-				String sql = "Select distinct u.id, u.name " + "from users u, participate p " +
-				// 파라미터를 받는 부분
-						"where p.group_id in ('"+group_name+ "') and u.id = p.participant ";
-				rs = stmt.executeQuery(sql);
-				System.out.println("<< query 1-1 result >>");
-				System.out.println("User ID    |User Name");
-				System.out.println("-----------------------------");
-				while (rs.next()) {
-					String id = rs.getString(1);
-					String name = rs.getString(2);
-					System.out.println(String.format("%-10s|%s", id, name));
-				}
-				rs.close();
-
-				System.out.println();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try {
+			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준으로)");
+			@SuppressWarnings("resource")
+			Scanner scan = new Scanner(System.in);
+			String group_name = scan.nextLine();
+			group_name = group_name.replaceAll(" ", "','");
+			// ArrayList<String> group_name=new
+			// ArrayList<String>(Arrays.asList(total_group_name.split(" ")));
+			stmt = conn.createStatement();
+			// query1-1
+			String sql = "Select distinct u.id, u.name " + "from users u, participate p " +
+			// 파라미터를 받는 부분
+					"where p.group_id in ('" + group_name + "') and u.id = p.participant ";
+			rs = stmt.executeQuery(sql);
+			System.out.println("<< query 1-1 result >>");
+			System.out.println("User ID    |User Name");
+			System.out.println("-----------------------------");
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String name = rs.getString(2);
+				System.out.println(String.format("%-10s|%s", id, name));
 			}
+			rs.close();
+
+			System.out.println();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
+
 	// query 3
 	private static void doTask3(Connection conn, Statement stmt) {
 		ResultSet rs = null;
@@ -288,13 +290,13 @@ public class Phase3 {
 			System.out.println("조회하고 싶은 기간을 입력하세요.");
 			System.out.print("조회시작일(YYYYMMDD): ");
 			Scanner scan = new Scanner(System.in);
-			String startSearch= scan.nextLine();
+			String startSearch = scan.nextLine();
 			System.out.print("조회끝일(YYYYMMDD): ");
-			String endSearch= scan.nextLine();
+			String endSearch = scan.nextLine();
 			String sql = "Select question_key, question_content" +
 			// from을 이렇게 길게 쓴 이유는??
-					" from (select question_key, question_content from question)"
-					+ "where question_key between '"+startSearch+"' and '"+endSearch+"' order by question_key";
+					" from (select question_key, question_content from question)" + "where question_key between '"
+					+ startSearch + "' and '" + endSearch + "' order by question_key";
 			rs = stmt.executeQuery(sql);
 			System.out.println("<< query 3 result >>");
 			System.out.println("question_date | question_content");
@@ -312,8 +314,8 @@ public class Phase3 {
 		}
 
 	}
-	
-	//query 4
+
+	// query 4
 	private static void doTask4(Connection conn, Statement stmt) {
 
 		ResultSet rs = null;
@@ -330,10 +332,10 @@ public class Phase3 {
 
 			stmt = conn.createStatement();
 			// query1-1
-			String sql = "Select u.id, u.name from users u, participate p, calendar c" 
-					+" where p.group_id = '" + group_id[0] + "'and p.group_id = c.group_id "
+			String sql = "Select u.id, u.name from users u, participate p, calendar c" + " where p.group_id = '"
+					+ group_id[0] + "'and p.group_id = c.group_id "
 					+ "and u.id = p.participant intersect select u.id, u.name "
-					+ "from users u, participate p, calendar c where p.group_id = '" + group_id[1] 
+					+ "from users u, participate p, calendar c where p.group_id = '" + group_id[1]
 					+ "'and p.group_id = c.group_id and u.id = p.participant";
 
 			rs = stmt.executeQuery(sql);
@@ -353,9 +355,9 @@ public class Phase3 {
 		}
 
 	}
-	
-	//query 9 -union
-    	private static void doTask9(Connection conn, Statement stmt) {
+
+	// query 9 -union
+	private static void doTask9(Connection conn, Statement stmt) {
 
 		ResultSet rs = null;
 
@@ -365,18 +367,17 @@ public class Phase3 {
 			String[] group_id = new String[2];
 
 			System.out.println("두 그룹 중 한 그룹에 속한 멤버의 이름과 생일을 출력하겠습니다.");
-            		System.out.println("첫번째 그룹의 이름을 입력하세요.");
+			System.out.println("첫번째 그룹의 이름을 입력하세요.");
 			group_id[0] = scan.nextLine();
 			System.out.println("두번째 그룹의 이름을 입력하세요.");
 			group_id[1] = scan.nextLine();
 
 			stmt = conn.createStatement();
-			
-			String sql = "select u.birthday u.name" 
-                    			+"from users u, participate p, calendar c" 
-					+" where p.group_id = '" + group_id[0] + "'and p.group_id = c.group_id "
+
+			String sql = "select u.birthday u.name" + "from users u, participate p, calendar c"
+					+ " where p.group_id = '" + group_id[0] + "'and p.group_id = c.group_id "
 					+ "and u.id = p.participant union select u.id, u.name "
-					+ "from users u, participate p, calendar c where p.group_id = '" + group_id[1] 
+					+ "from users u, participate p, calendar c where p.group_id = '" + group_id[1]
 					+ "'and p.group_id = c.group_id and u.id = p.participant";
 
 			rs = stmt.executeQuery(sql);
