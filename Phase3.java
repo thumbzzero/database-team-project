@@ -199,7 +199,7 @@ public class Phase3 {
 				// query
 				case "4":
 					String group_num;
-					System.out.println("그룹의 개수를 지정하세요. ");
+					System.out.println("그룹의 개수를 지정하세요. 1개라면 1, 그 이상이라면 2를 입력하세요");
 					group_num = scanner.nextLine();
 					if (group_num.equals("1")) {
 						// 입력받는: 그룹명
@@ -254,6 +254,7 @@ public class Phase3 {
 		
         	@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
+        	System.out.println("조회할 그룹의 그룹명을 입력하세요.");
             	String group_name = scan.nextLine();
             	stmt = conn.createStatement();
             	//query1-1
