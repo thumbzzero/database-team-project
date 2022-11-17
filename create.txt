@@ -1,0 +1,484 @@
+CREATE TABLE USERS
+(
+id VARCHAR(20) NOT NULL,
+password VARCHAR(20) NOT NULL,
+birthday DATE NOT NULL,
+name VARCHAR(10) NOT NULL,
+profile_photo VARCHAR(100),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Diary
+(
+diary_key NUMBER NOT NULL,
+diary_content VARCHAR(1000),
+DIARY_date DATE NOT NULL,
+id VARCHAR(20) NOT NULL,
+date_Key number not null,
+PRIMARY KEY(diary_key)
+);
+
+CREATE TABLE ATTACHED_FILE
+(
+file_name VARCHAR(100) NOT NULL,
+file_size NUMBER NOT NULL,
+extension VARCHAR(6) NOT NULL,
+diary_key NUMBER NOT NULL,
+PRIMARY KEY(file_name)
+);
+
+Create table  day_record
+(
+date_Key number not null,
+record_date Date not null,
+schedule  varchar(30),
+schedule_content varchar(200),
+color number default 1 not null,
+group_id varchar(20) not null,
+question_key Number not null,
+primary key(date_Key)
+);
+
+Create table Calendar
+(
+group_id varchar(20) not null,
+createdAt Date,
+password varchar(4),
+primary key(group_id)
+);
+
+Create table Question
+(
+question_key Number not null,
+question_content varchar(100) not null,
+primary key(question_key)
+);
+
+CREATE TABLE VOTE
+(
+vote_key NUMBER NOT NULL,
+vote_name VARCHAR(20) NOT NULL,
+deadline DATE,
+date_Key number not null,
+group_id VARCHAR(20) not null,
+PRIMARY KEY (vote_key)
+);
+
+CREATE TABLE ITEM
+(
+item_key NUMBER NOT NULL,
+item_name VARCHAR(30) NOT NULL,
+vote_key NUMBER NOT NULL,
+PRIMARY KEY(item_key)
+);
+
+Create table participate
+(
+group_id varchar(20) not null,
+participant varchar(20) not null,
+primary key(group_id, participant)
+);
+
+Create table Answer
+(
+id VARCHAR(20) NOT NULL,
+question_key number not null,
+user_answer varchar(500),
+primary key(id, question_key)
+);
+
+CREATE TABLE PICK
+(
+user_id VARCHAR(20) NOT NULL,
+item_key NUMBER NOT NULL,
+PRIMARY KEY(user_id, item_key)
+);
+
+
+ALTER TABLE PARTICIPATE ADD CONSTRAINT FK1 FOREIGN KEY (PARTICIPANT) references USERS(ID) ON DELETE CASCADE;
+ALTER TABLE PARTICIPATE ADD CONSTRAINT FK2 FOREIGN KEY (GROUP_ID) references CALENDAR(GROUP_ID) ON DELETE CASCADE;
+AlTER table answer add constraint FK3 foreign key (id) references users(id)on delete cascade;
+AlTER table answer add constraint FK4 foreign key (question_key) references question(question_key)on delete cascade;
+ALTER TABLE PICK ADD CONSTRAINT FK5 FOREIGN KEY (USER_ID) references USERS(ID) ON DELETE CASCADE;
+ALTER TABLE PICK ADD CONSTRAINT FK6 FOREIGN KEY (ITEM_KEY) references ITEM(ITEM_KEY) ON DELETE CASCADE;
+
+
+ALTER TABLE DAY_RECORD ADD CONSTRAINT FK7 FOREIGN KEY (GROUP_ID) references CALENDAR(GROUP_ID) ON DELETE CASCADE;
+ALTER TABLE DAY_RECORD ADD CONSTRAINT FK8 FOREIGN KEY (QUESTION_KEY) references QUESTION(QUESTION_KEY) ON DELETE CASCADE;
+ALTER TABLE DIARY ADD CONSTRAINT FK9 FOREIGN KEY (ID) references USERS(ID) ON DELETE CASCADE;
+ALTER TABLE DIARY ADD CONSTRAINT FK10 FOREIGN KEY (DATE_KEY) references DAY_RECORD(DATE_KEY) ON DELETE CASCADE;
+ALTER TABLE VOTE ADD CONSTRAINT FK11 FOREIGN KEY (DATE_KEY) references DAY_RECORD(DATE_KEY) ON DELETE CASCADE;
+ALTER TABLE ATTACHED_FILE ADD CONSTRAINT FK12 FOREIGN KEY (DIARY_KEY) references DIARY(DIARY_KEY) ON DELETE CASCADE;
+
+insert into Users values('hyejjang', '1203', To_date('2000-12-03', 'yyyy-mm-dd'), 'Dahye', 'Dahye/1.png');
+insert into Users values('jde', '1203', To_date('2020-12-03', 'yyyy-mm-dd'), 'Daeun', 'Daeun/1.png');
+insert into Users values('fye', '0504', To_date('2000-05-04', 'yyyy-mm-dd'), 'Yuna', 'Yuna/1.png');
+insert into Users values('jung', '1128', To_date('2000-11-28', 'yyyy-mm-dd'), 'Sojung', 'Sojung/1.png');
+insert into Users values('young', '1005', To_date('2001-10-05', 'yyyy-mm-dd'), 'Jiyoung', 'Jiyoung/1.png');
+insert into Users values('won', '1111', To_date('2000-11-11', 'yyyy-mm-dd'), 'Jeongwon', 'Jeongwon/1.png');
+insert into Users values('ez', '0418', To_date('2000-04-18', 'yyyy-mm-dd'), 'Eunjung', NULL);
+insert into Users values('you', '1218', To_date('2001-12-18', 'yyyy-mm-dd'), 'Youjin', NULL);
+insert into Users values('oong', '1230', To_date('2000-12-30', 'yyyy-mm-dd'), 'Teaoong', NULL);
+insert into Users values('oh', '0817', To_date('2001-08-17', 'yyyy-mm-dd'), 'Sunoh', NULL);
+insert into Users values('ae', '1031', To_date('2000-10-31', 'yyyy-mm-dd'), 'Jiae', NULL);
+insert into Users values('jju', '0724', To_date('2000-07-24', 'yyyy-mm-dd'), 'Minju', NULL);
+insert into Users values('tom123', 'and jerry', To_date('2000-09-11', 'yyyy-mm-dd'), 'tom', 'tom/tom.png');
+insert into Users values('jerry321', 'and tom', To_date('2000-01-23', 'yyyy-mm-dd'), 'jerry', 'jerry/jerry.png');
+insert into Users values('jeong000', 'jrjmh', To_date('2000-07-17', 'yyyy-mm-dd'), 'jeong', NULL);
+insert into Users values('sindy11', 'oksusu', To_date('2000-11-11', 'yyyy-mm-dd'), 'sindy', 'sindy/corn.png');
+insert into Users values('park21', 'globalsw', To_date('2000-12-07', 'yyyy-mm-dd'), 'yujin', 'yujin/yujin.png');
+insert into Users values('eom20', 'simcom', To_date('2000-10-04', 'yyyy-mm-dd'), 'jiyeong', NULL);
+insert into Users values('assa', 'nofriend', To_date('2000-01-24', 'yyyy-mm-dd'), 'gaeddong', NULL);
+insert into Users values('123123123', 'abcabc', To_date('2001-12-18', 'yyyy-mm-dd'), 'Sue', 'Sue/1.png');
+insert into Users values('321321321', 'bcabca', To_date('2001-12-20', 'yyyy-mm-dd'), 'peter', 'peter/2.png');
+insert into Users values('123456789', 'cbacba', To_date('2001-12-22', 'yyyy-mm-dd'), 'andrew', 'andrew/3.png');
+insert into Users values('987654321', 'cdecde', To_date('2001-12-24', 'yyyy-mm-dd'), 'jackon', 'jackon/4.png');
+insert into Users values('234234234', 'dcedce', To_date('2001-12-26', 'yyyy-mm-dd'), 'jerry', 'jerry/5.png');
+insert into Users values('345345345', 'edcedc', To_date('2001-12-28', 'yyyy-mm-dd'), 'bella', 'bella/6.png');
+insert into Users values('456456456', 'fegfeg', To_date('2001-12-30', 'yyyy-mm-dd'), 'alice', 'alice/7.png');
+
+insert into calendar values('아우들', To_date('2022-07-01', 'yyyy-mm-dd'), '0701');
+insert into calendar values('열쪙', To_date('2022-09-02', 'yyyy-mm-dd'), '0000');
+insert into calendar values('팀팀', To_date('2022-08-12', 'yyyy-mm-dd'), '3426');
+insert into calendar values('톰과제리', To_date('2022-09-10', 'yyyy-mm-dd'), '0123');
+insert into calendar values('디비자자', To_date('2022-09-20', 'yyyy-mm-dd'), '0122');
+insert into calendar values('삼총사그룹', To_date('2022-08-01', 'yyyy-mm-dd'), '1234');
+insert into calendar values('최강동기사총사', To_date('2022-08-02', 'yyyy-mm-dd'), '1235');
+
+ 
+insert into participate values('아우들', 'hyejjang');
+insert into participate values('아우들', 'jde');
+insert into participate values('아우들', 'fye');
+insert into participate values('아우들', 'jung');
+insert into participate values('열쪙', 'hyejjang');
+insert into participate values('열쪙', 'young');
+insert into participate values('열쪙', 'won');
+insert into participate values('열쪙', 'ez');
+insert into participate values('팀팀', 'hyejjang');
+insert into participate values('팀팀', 'young');
+insert into participate values('팀팀', 'you');
+insert into participate values('팀팀', 'oong');
+insert into participate values('팀팀', 'oh');
+insert into participate values('톰과제리', 'tom123');
+insert into participate values('톰과제리', 'jerry321');
+insert into participate values('톰과제리', 'jeong000');
+insert into participate values('톰과제리', 'sindy11');
+insert into participate values('디비자자', 'park21');
+insert into participate values('디비자자', 'eom20');
+insert into participate values('디비자자', 'jeong000');
+insert into participate values('최강동기사총사', '123123123');
+insert into participate values('최강동기사총사', '321321321');
+insert into participate values('최강동기사총사', '123456789');
+insert into participate values('최강동기사총사', '987654321');
+insert into participate values('삼총사그룹', '234234234');
+insert into participate values('삼총사그룹', '345345345');
+insert into participate values('삼총사그룹', '456456456');
+
+
+insert into question values(20221001, '오늘의 음악은?');
+insert into question values(20221002, '오늘 점심에 뭐 먹었나요?');
+insert into question values(20221003, '내 최애 음식은?');
+insert into question values(20221004, '좋아하는 계절은? 이유는요~?');
+insert into question values(20221005, '겨울방학때 하고 싶은 일은?');
+insert into question values(20221017, '엠비티아이중에 젤 좋아하는 것은??');
+insert into question values(20221018, '내가 좋아하는 거 세가지');
+insert into question values(20220901, '여행가고 싶은 곳은?');
+insert into question values(20220902, '오늘 할 일은?');
+insert into question values(20220903, '어제 자기 전에 한 일은?');
+insert into question values(20220904, '좋아하는 가수는?');
+insert into question values(20220905, '넷플릭스 추천작은?');
+insert into question values(20220906, '어릴적 꿈은?');
+insert into question values(20220907, '별명은?');
+insert into question values(20220908, '가장 좋아하는 숫자는?');
+insert into question values(20220909, '키우고 싶은 동물이 있다면?');
+insert into question values(20220910, 'mbti는?');
+insert into question values(20220911, '오늘의 기분은?');
+insert into question values(20220912, '오늘 땡기는 음식은?');
+insert into question values(20220913, '싫어하는 음식 재료는?');
+insert into question values(20220914, '나만의 특이한 말투가 있다면?');
+insert into question values(20220915, '아침에 일어나서 가장 먼저 하는 일은?');
+insert into question values(20220916, '양말을 왼쪽, 오른쪽 중에 어디부터 신는지?');
+insert into question values(20220917, '토맛토마토 vs 토마토맛토?');
+insert into question values(20220918, '아침형 인간 vs 올빼미형 인간?');
+insert into question values(20220919, '하루 평균 수면시간은?');
+insert into question values(20220920, '좋아하는 영화 장르는?');
+insert into question values(20220921, '퍼스널 컬러는?');
+insert into question values(20220922, '이번 주 먹은 음식 중 가장 맛있었던 것은?');
+insert into question values(20220923, '최근 한 달 간 가장 웃겼던 일은?');
+insert into question values(20220924, '강아지 vs 고양이?');
+insert into question values(20220925, '칼국수 vs 잔치국수?');
+insert into question values(20220926, '아이스티 vs 아샷추?');
+insert into question values(20220927, '한겨울에 아이스 vs 핫?');
+insert into question values(20220928, '팥붕 vs 슈붕?');
+insert into question values(20220929, '블랙 vs 화이트?');
+insert into question values(20220930, '캐주얼 스타일 vs 정장 스타일?');
+insert into question values(20220801, '당신의 좌우명은?');
+insert into question values(20220802, '당신의 요즘 가장 큰 고민은?');
+insert into question values(20220803, '당신의 오늘 하루는?');
+insert into question values(20220804, '당신의 인생에 영향을 준 위인은?');
+insert into question values(20220805, '당신이 가장 좋아하는 음식은?');
+insert into question values(20220806, '당신이 10년뒤에 하고 싶은일은?');
+insert into question values(20220807, '당신에게 가장 소중한 것은?');
+insert into question values(20220808, '당신에게 가족이란?');
+insert into question values(20220809, '당신이 요즘 즐겨하는 운동은?');
+insert into question values(20220810, '당신이 가장 좋아하는 영화는?');
+insert into question values(20220811, '당신이 가장 좋아하는 책은?');
+insert into question values(20220812, '당신이 좋아하는 연예인은?');
+insert into question values(20220813, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220814, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220815, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220816, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220817, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220818, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220819, '임시-당신이 좋아하는 연예인은?');
+insert into question values(20220820, '임시-당신이 좋아하는 연예인은?');
+
+
+ 
+insert into day_record values(21, To_date('2022-10-01', 'yyyy-mm-dd'), NULL, NULL, 1,'아우들',20221001);
+insert into day_record values(22, To_date('2022-10-03', 'yyyy-mm-dd'), '밥묵자', '어디갈지는 투표하슈', 2,'아우들',20221003);
+insert into day_record values(23, To_date('2022-10-04', 'yyyy-mm-dd'), NULL, NULL, 1,'아우들',20221004);
+insert into day_record values(24, To_date('2022-09-01', 'yyyy-mm-dd'), '정원이 미국 가는 날..', '진짜로 내 없어도 괘않나?', 3,'열쪙',20220901);
+insert into day_record values(25, To_date('2022-10-02', 'yyyy-mm-dd'), NULL, NULL, 1,'열쪙',20221002);
+insert into day_record values(26, To_date('2022-10-05', 'yyyy-mm-dd'), NULL, NULL, 1,'열쪙',20221005);
+insert into day_record values(27, To_date('2022-10-17', 'yyyy-mm-dd'), NULL, NULL, 1,'팀팀',20221017);
+insert into day_record values(28, To_date('2022-10-18', 'yyyy-mm-dd'), NULL, NULL, 1,'팀팀',20221018);
+insert into day_record values(29, To_date('2022-10-04', 'yyyy-mm-dd'), NULL, NULL, 1,'팀팀',20221004);
+insert into day_record values(30, To_date('2022-10-05', 'yyyy-mm-dd'), NULL, NULL, 1,'팀팀',20221005);
+insert into day_record values(11, To_date('2022-09-10', 'yyyy-mm-dd'), 'hi, tom', 'tom and jerry and jeong hi tom tom tom', 1,'톰과제리',20220910);
+insert into day_record values(12, To_date('2022-09-12', 'yyyy-mm-dd'), 'hi, jerry', 'jerry and tom and jeong hi jerry jerry jerry', 2,'톰과제리',20220912);
+insert into day_record values(13, To_date('2022-09-20', 'yyyy-mm-dd'), 'hi, jeong', 'jeong and tom and jerry hi jeong jeong jeong', 3,'톰과제리',20220920);
+insert into day_record values(14, To_date('2022-09-24', 'yyyy-mm-dd'), 'ppororo', 'stop assignment stop exam', 4,'톰과제리',20220924);
+insert into day_record values(15, To_date('2022-09-26', 'yyyy-mm-dd'), 'im fine...', 'thank you and you', 4,'톰과제리',20220926);
+insert into day_record values(41, To_date('2022-09-21', 'yyyy-mm-dd'), 'dbdbdip', 'dbdbdip dbjaja haha hoho', 1,'디비자자',20220921);
+insert into day_record values(42, To_date('2022-09-29', 'yyyy-mm-dd'), '주제 정하자', '우리의 주제는 우리우정012', 7,'디비자자',20220929);
+insert into day_record values(43, To_date('2022-09-30', 'yyyy-mm-dd'), 'erd', 'er diagram 그리기 너무 어려워', 5,'디비자자',20220930);
+insert into day_record values(1, To_date('2022-08-01', 'yyyy-mm-dd'), '회식날', '오늘은 오랜만에 셋이 만나서 맛있는거 먹는날~', 2,'최강동기사총사',20220801);
+insert into day_record values(2, To_date('2022-08-02', 'yyyy-mm-dd'), '공부', '오늘은 공부만하자~', 3,'최강동기사총사',20220802);
+insert into day_record values(3, To_date('2022-08-03', 'yyyy-mm-dd'), '맘편히', '오늘은 오랜만에 셋이 만나서 맘편히 푸파하자~', 4,'최강동기사총사',20220803);
+insert into day_record values(4, To_date('2022-08-04', 'yyyy-mm-dd'), '회식날', '동아리 회식', 2,'최강동기사총사',20220804);
+insert into day_record values(5, To_date('2022-08-05', 'yyyy-mm-dd'), '회식날', '오늘도 동아리 회식 …', 2,'최강동기사총사',20220805);
+insert into day_record values(6, To_date('2022-08-06', 'yyyy-mm-dd'), '시험공부날', '오늘 카페에서 하루종일 시험공부하자~', 3,'최강동기사총사',20220806);
+insert into day_record values(7, To_date('2022-08-07', 'yyyy-mm-dd'), '오또시', '오늘 또 시험공부', 3,'최강동기사총사',20220807);
+insert into day_record values(8, To_date('2022-08-08', 'yyyy-mm-dd'), '시험마지막', '시험공부 마지막이다 ~~~', 3,'최강동기사총사',20220808);
+insert into day_record values(9, To_date('2022-08-09', 'yyyy-mm-dd'), '시험 후 회식', '동기들끼리 만나서 시험뒷풀이 가는날', 2,'최강동기사총사',20220809);
+insert into day_record values(10, To_date('2022-08-10', 'yyyy-mm-dd'), '술', '오늘은 오랜만에 셋이 만나서 맛있는거 먹는날~', 4,'최강동기사총사',20220810);
+insert into day_record values(31, To_date('2022-08-11', 'yyyy-mm-dd'), '회식1', '동아리 회식', 2,'삼총사그룹',20220811);
+insert into day_record values(32, To_date('2022-08-12', 'yyyy-mm-dd'), '회식2', '3차까지 달리기로 한날', 2,'삼총사그룹',20220812);
+insert into day_record values(33,To_date('2022-08-13', 'yyyy-mm-dd'), '영화', '하정우 나오는 영화본당 뀨~', 5,'삼총사그룹',20220813);
+insert into day_record values(34, To_date('2022-08-14', 'yyyy-mm-dd'), '카페', '하루종일 카페에서 수다나 떨자', 5,'삼총사그룹',20220814);
+insert into day_record values(35, To_date('2022-08-15', 'yyyy-mm-dd'), '모임1', '곱창먹으러 가자', 5,'삼총사그룹',20220815);
+insert into day_record values(36, To_date('2022-08-16', 'yyyy-mm-dd'), '모임2', '자취생들끼리 고기먹으러 가는날~', 5,'삼총사그룹',20220816);
+insert into day_record values(37, To_date('2022-08-17', 'yyyy-mm-dd'), '놀이공원', '우리 셋이 처음으로 놀이공원 가는 날', 6,'삼총사그룹',20220817);
+insert into day_record values(38, To_date('2022-08-18', 'yyyy-mm-dd'), '바다여행', '우리 셋이 처음으로 기차여행 가는날', 6,'삼총사그룹',20220818);
+insert into day_record values(39, To_date('2022-08-19', 'yyyy-mm-dd'), '부산여행', '오늘은 우리 셋이 두번째로 다같이 타지로 여행가는 날', 6,'삼총사그룹',20220819);
+
+ 
+
+
+
+insert into answer values('hyejjang', 20221001,'오월오일-warrior 이거 진짜 좋으니 들어보슈');
+insert into answer values('jde', 20221001,'시온이가 부른 코미디 들어봐바');
+insert into answer values('fye', 20221001,'라쿠나-you 인생 곡 되기 직전임;;');
+insert into answer values('hyejjang', 20221003,'마라샹궈지 당연히 ㅜㅜ 내일 먹을까');
+insert into answer values('jung', 20221003, '치킨치킨치킨치킨');
+insert into answer values('jde', 20221004, '당연 겨울. 낭만있자나요~ 크리스마스 분위기 낭낭');
+insert into answer values('fye', 20221004, '봄~~ 제 생일이 있거덩요 .. 더보기');
+insert into answer values('hyejjang', 20221002,'다시가서 쌀국수먹었당!');
+insert into answer values('young', 20221002, '나도 다시가서 쌀국수먹었당!');
+insert into answer values('won', 20221005, '계절..은 하기 싫어요 신나게 놀래요');
+insert into answer values('hyejjang', 20221005,'스키 타러 갈래용~ 무주무주');
+insert into answer values('ez', 20221005,'난 스키타러가서 쿨쿨');
+insert into answer values('young', 20221005,'아 재밌겠다~ 눈이 펑펑');
+insert into answer values('won', 20220901, '일본 가고싶어요~ 같이가자 얘드라><');
+insert into answer values('hyejjang', 20220901,'삿포르가서 눈보고싶어!');
+insert into answer values('ez', 20220901,'미국이요~ 옥수수밭보러요');
+insert into answer values('young', 20220901,'대만이요~ 지브리 촬영지 가보고싶어요');
+insert into answer values('hyejjang', 20221017,'난 enfp인데 n이 젤 좋아요~ n은 뭔가 현실을 더 재밌게 살아갈 수 있는 너낌~><');
+insert into answer values('young', 20221017,'전 power S니까 S요~');
+insert into answer values('young', 20221018,'z플립4, 노트북, 초코우유');
+insert into answer values('you', 20221018,'커피, 카페, 삼겹살');
+insert into answer values('oh', 20221018,'셔츠, 보드게임, 재미난거');
+insert into answer values('oong', 20221018,'기리보이, 축구, 손흥민');
+insert into answer values('oh', 20221005,'얼음폭포보러가기');
+insert into answer values('oong', 20221005,'크리스마스 트리 꾸미기');
+insert into answer values('tom123', 20220910, 'entj');
+insert into answer values('jerry321', 20220910, 'estj');
+insert into answer values('jeong000', 20220910, 'enfp');
+insert into answer values('sindy11', 20220910, 'intj');
+insert into answer values('tom123', 20220912, '볶음밥');
+insert into answer values('jerry321', 20220912, '라멘');
+insert into answer values('jeong000', 20220912, '쌀국수');
+insert into answer values('sindy11', 20220912, '피자');
+insert into answer values('tom123', 20220920, '로맨스');
+insert into answer values('jerry321', 20220920, '코미디');
+insert into answer values('jeong000', 20220920, '액션');
+insert into answer values('sindy11', 20220920, '코미디');
+insert into answer values('tom123', 20220924, '고양이');
+insert into answer values('jerry321', 20220924, '강아지');
+insert into answer values('jeong000', 20220924, '강아지');
+insert into answer values('sindy11', 20220924, '강아지');
+insert into answer values('tom123', 20220926, '아이스티');
+insert into answer values('jerry321', 20220926, '아샷추');
+insert into answer values('jeong000', 20220926, '아샷추');
+insert into answer values('sindy11', 20220926, '아이스티');
+insert into answer values('eom20', 20220921, '가을웜');
+insert into answer values('park21', 20220921, '봄웜');
+insert into answer values('jeong000', 20220921, '여름쿨');
+insert into answer values('eom20', 20220929, '블랙');
+insert into answer values('park21', 20220929, '화이트');
+insert into answer values('jeong000', 20220929, '블랙');
+insert into answer values('eom20', 20220930, '캐주얼');
+insert into answer values('park21', 20220930, '정장');
+insert into answer values('jeong000', 20220930, '정장');
+insert into answer values('123123123', 20220801, '저의 좌우명은 하고싶은거 하면서 살자 입니다~');
+insert into answer values('321321321', 20220801, '남에게 피해주며 살지말자');
+insert into answer values('123456789', 20220801, '돈 많이벌자 ㅎㅎ');
+insert into answer values('987654321', 20220801, '돈, 명예, 권력 ㅋ');
+insert into answer values('123123123', 20220802, '중간고사...막막쓰');
+insert into answer values('321321321', 20220802, '나의 미래? ㅎ');
+insert into answer values('123123123', 20220803, '남자친구랑 하루종일 붙어있었다 ㅎ');
+insert into answer values('123456789', 20220803, '우울한 하루였당');
+insert into answer values('987654321', 20220803, '벅찼던 하루...');
+insert into answer values('123123123', 20220804, '아인슈타인');
+insert into answer values('321321321', 20220804, '부모님');
+insert into answer values('987654321', 20220805, '무조건 삼겹살');
+ 
+insert into vote values( 21, '메뉴 정하자~', To_date('2022-10-03', 'yyyy-mm-dd'),21, '아우들');
+insert into vote values( 22, '언제볼까', To_date('2022-10-10', 'yyyy-mm-dd'),25, '열쪙');
+insert into vote values( 23, '무슨 카페 갈지', To_date('2022-10-18', 'yyyy-mm-dd'),26, '팀팀');
+insert into vote values(11, '방학 여행 where', To_date('2022-09-15', 'yyyy-mm-dd'),11, '톰과제리');
+insert into vote values(13, '담주 토에 뭐 할래', To_date('2022-09-20', 'yyyy-mm-dd'),13, '톰과제리');
+insert into vote values(43, '다음 회의 언제할까', To_date('2022-10-10', 'yyyy-mm-dd'),43, '디비자자');
+insert into vote values( 1, '오늘 먹을거 투표', To_date('2022-10-16', 'yyyy-mm-dd'),1, '최강동기사총사');
+insert into vote values( 2, '여행갈 나라', To_date('2022-10-16', 'yyyy-mm-dd'),2, '최공동기사총사');
+insert into vote values( 3, '오늘 하루종일 일정', To_date('2022-10-16', 'yyyy-mm-dd'),3, '최강동기사총사');
+insert into vote values( 4, '우리 옷스타일', To_date('2022-10-16', 'yyyy-mm-dd'),4, '최강동기사총사');
+
+insert into item values(201, '오므라이스',21);
+insert into item values(202, '마라샹궈',21);
+insert into item values(203, '김밥',21);
+insert into item values(204, '치킨',21);
+insert into item values(205, '10/3',22);
+insert into item values(206, '10/4',22);
+insert into item values(207, '10/5',22);
+insert into item values(208, '10/6',22);
+insert into item values(209, '10/7',22);
+insert into item values(210, '10/8',22);
+insert into item values(211, '10/9',22);
+insert into item values(212, '블멜',23);
+insert into item values(213, '루트커피',23);
+insert into item values(214, '아틀리에빈',23);
+insert into item values(215, '스벅',23);
+insert into item values(1, '무주스키장',11);
+insert into item values(2, '부산',11);
+insert into item values(3, '경주',11);
+insert into item values(4, '포항',11);
+insert into item values(5, '울산',11);
+insert into item values(6, '서울',11);
+insert into item values(7, '전주',11);
+insert into item values(8, '보드게임카페',13);
+insert into item values(9, '볼링',13);
+insert into item values(10, '방탈출',13);
+insert into item values(11, '등산',13);
+insert into item values(12, '10월11일 오후',43);
+insert into item values(13, '10월12일 오후',43);
+insert into item values(14, '10월13일 오후',43);
+insert into item values(15, '10월14일 오전',43);
+insert into item values(16, '10월14일 오후',43);
+insert into item values(17, '10월15일',43);
+insert into item values(100, '김밥',1);
+insert into item values(101, '떡볶이',1);
+insert into item values(102, '라면',1);
+insert into item values(103, '순대',1);
+insert into item values(104, '파스타',1);
+insert into item values(105, '인도',2);
+insert into item values(106, '파키스탄',2);
+insert into item values(107, '튀르키예',2);
+insert into item values(108, '미국',2);
+insert into item values(109, '일본',2);
+insert into item values(110, '카페갔다 점심을 먹자',3);
+insert into item values(120, '백화점을 둘러보고 점심을 먹자',3);
+insert into item values(130, '인생네컷찍고 생각해보자',3);
+insert into item values(140, '밥먹고 만나서 카페를 가자',3);
+insert into item values(150, '랜덤으로 영화를 보자',3);
+insert into item values(161, '빨간색으로 옷 맞춰',4);
+insert into item values(162, '검은생 망사 가보자고',4);
+insert into item values(163, '레이스? ㅎㅎ',4);
+insert into item values(164, '그냥 청바지만 맞추자',4);
+ 
+ 
+insert into pick values('hyejjang', 202);
+insert into pick values('jde', 202);
+insert into pick values('fye', 202);
+insert into pick values('jung', 204);
+insert into pick values('hyejjang', 207);
+insert into pick values('ez', 207);
+insert into pick values('young', 207);
+insert into pick values('won', 205);
+insert into pick values('young', 213);
+insert into pick values('you', 213);
+insert into pick values('hyejjang', 213);
+insert into pick values('oh', 214);
+insert into pick values('oong', 215);
+insert into pick values('tom123', 1);
+insert into pick values('jerry321', 1);
+insert into pick values('jeong000', 1);
+insert into pick values('tom123', 10);
+insert into pick values('jerry321', 8);
+insert into pick values('jeong000', 10);
+insert into pick values('eom20', 12);
+insert into pick values('park21', 13);
+insert into pick values('jeong000', 13);
+insert into pick values('123123123', 100);
+insert into pick values('123123123', 101);
+insert into pick values('123123123', 102);
+insert into pick values('123123123', 103);
+insert into pick values('123123123', 104);
+ 
+insert into Diary values(21, '오늘부터 공부할거야~ 얘들아 열공하자 ㅜㅜ',  To_date('20221001', 'yyyy-mm-dd'),'hyejjang',21);
+insert into Diary values(22, '오늘 진짜 더웠다..',  To_date('20221003', 'yyyy-mm-dd'),'jung',22);
+insert into Diary values(23, '이 책가방 살까 고민중 후후 어때보여',  To_date('20221004', 'yyyy-mm-dd'),'hyejjang',23);
+insert into Diary values(24, '1교시 진짜 힘들다.......',  To_date('20220901', 'yyyy-mm-dd'),'jung',24);
+insert into Diary values(25, '오늘은 정말 웃기는 일이 있었다 뭐였냐면 ...',  To_date('20221002', 'yyyy-mm-dd'),'jde',25);
+insert into Diary values(26, '바쁘다 바빠 오늘 진짜 여기뿅저기뿅',  To_date('20221017', 'yyyy-mm-dd'),'you',26);
+insert into Diary values(27, '오늘은 하루에 네끼나 먹었다! 시험기간이야 뭐야~(시험기간 맞음)',  To_date('20221018', 'yyyy-mm-dd'),'oh',27);
+insert into Diary values(28, '오늘은 꼭 일찍자고 일찍 일어나야지~',  To_date('20221004', 'yyyy-mm-dd'),'oong',28);
+insert into Diary values(29, '오늘은 진짜 일찍자고 일찍 일어나야지~',  To_date('20221005', 'yyyy-mm-dd'),'oong',29);
+insert into Diary values(11, '톰제리정의 첫 일기',  To_date('2022-09-10', 'yyyy-mm-dd'),'jerry321',11);
+insert into Diary values(13, '쌀국수 먹었지롱',  To_date('2022-09-20', 'yyyy-mm-dd'),'tom123',13);
+insert into Diary values(41, '쟁쟁한 팀명 후보',  To_date('2022-09-21', 'yyyy-mm-dd'),'eom20',41);
+insert into Diary values(42, '쟁쟁한 주제 후보',  To_date('20220929', 'yyyy-mm-dd'),'park21',42);
+insert into Diary values(43, 'erd 너무 어렵',  To_date('20220930', 'yyyy-mm-dd'),'jeong000',43);
+insert into Diary values(1, '오늘의 일기 블라블라~',  To_date('2020-08-01', 'yyyy-mm-dd'),'123123123',1);
+insert into Diary values(2, '오늘의 일기2 블라블라~',  To_date('2020-08-02', 'yyyy-mm-dd'),'321321321',2);
+insert into Diary values(3, '오늘의 일기3 블라블라~',  To_date('2020-08-03', 'yyyy-mm-dd'),'123123123',3);
+insert into Diary values(4, '오늘의 일기4 블라블라~',  To_date('2020-08-04', 'yyyy-mm-dd'),'321321321',4);
+insert into Diary values(5, '오늘의 일기5 블라블라~',  To_date('2020-08-05', 'yyyy-mm-dd'),'987654321',5);
+insert into Diary values(6, '오늘의 일기6 블라블라~',  To_date('2020-08-06', 'yyyy-mm-dd'),'123456789',6);
+
+ 
+insert into attached_file values('study', 150, 'jpg',21);
+insert into attached_file values('dog', 150, 'jpg',21);
+insert into attached_file values('cat', 150, 'jpg',22);
+insert into attached_file values('bag', 150, 'jpg',23);
+insert into attached_file values('tierd', 150, 'jpg',24);
+insert into attached_file values('fun', 150, 'jpg',25);
+insert into attached_file values('busy', 150, 'jpg',26);
+insert into attached_file values('meal', 150, 'jpg',27);
+insert into attached_file values('first file', 1, 'jpg',1);
+insert into attached_file values('second file', 3, 'jpg',2);
+insert into attached_file values('third file', 5, 'jpg',3);
+insert into attached_file values('fourth file', 7, 'jpg',3);
+insert into attached_file values('fifth file', 9, 'jpg',4);
+insert into attached_file values('sixth file', 31, 'jpg',5);
+insert into attached_file values('seventh file', 33, 'jpg',5);
+insert into attached_file values('eighth file', 35, 'jpg',5);
+insert into attached_file values('ninth file', 37, 'jpg',5);
+insert into attached_file values('tenth file', 39, 'jpg',6);
+insert into attached_file values('eleventh file', 61, 'jpg',6);
+insert into attached_file values('twelth file', 63, 'jpg',6);
+insert into attached_file values('thirteenth file', 65, 'jpg',6);
+insert into attached_file values('fourteenth file', 67, 'jpg',6);
+insert into attached_file values('fifteen file', 69, 'jpg',1);
+insert into attached_file values('sixtennth file', 90, 'jpg',2);
