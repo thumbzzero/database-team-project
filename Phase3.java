@@ -445,7 +445,7 @@ public class Phase3 {
 			System.out.println("------------------------------");
 			while (rs.next()) {
 				String ID = rs.getString(1);
-				int num = rs.getInt(2);;
+				int num = rs.getInt(2);
 				System.out.println(String.format("%-4s|%-11s", ID, num));
 			}
 			rs.close();
