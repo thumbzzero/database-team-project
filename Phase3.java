@@ -181,7 +181,7 @@ public class Phase3 {
 					System.out.println("캘린더의 비밀번호를 입력하세요.");
 					password = scanner.nextLine();
 
-					sql = "INSERT INTO USERS VALUES (" + group_id + ", " + createdAt + ", " + password + ")";
+					sql = "INSERT INTO CALENDAR VALUES ('" + group_id + "', '" + createdAt + "', '" + password + "')";
 					res = stmt.executeUpdate(sql);
 					if (res == 0)
 						System.out.println("insert was successfully created.");
@@ -190,7 +190,7 @@ public class Phase3 {
 					System.out.println("id를 입력하세요.");
 					id = scanner.nextLine();
 
-					sql = "DELETE FROM USERS WHERE id = " + id;
+					sql = "DELETE FROM USERS WHERE id = '" + id+"'";
 					res = stmt.executeUpdate(sql);
 					if (res == 0)
 						System.out.println("delete was successfully created.");
@@ -258,10 +258,10 @@ public class Phase3 {
             	stmt = conn.createStatement();
             	//query1-1
            	 String sql = "Select u.id, u.name" +
-                         	"from users u, participate p"+
+                         	" from users u, participate p"+
                          	// 파라미터를 받는 부분
-                         	"where p.group_id = ' " +group_name+ " ' " +
-                         	"and u.id = p.participant ";
+                         	" where p.group_id = '" +group_name+ "' " +
+                         	" and u.id = p.participant ";
             	rs = stmt.executeQuery(sql);
             	System.out.println("<< query 1-1 result >>");
             	System.out.println("User ID    |User Name");
@@ -445,7 +445,7 @@ public class Phase3 {
 			System.out.println("------------------------------");
 			while (rs.next()) {
 				String ID = rs.getString(1);
-				int num = rs.getInt(2);
+				int num = rs.getInt(2);;
 				System.out.println(String.format("%-4s|%-11s", ID, num));
 			}
 			rs.close();
