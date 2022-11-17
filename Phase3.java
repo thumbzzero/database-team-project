@@ -209,6 +209,7 @@ public class Phase3 {
 					}
 					break;
 				case "5":
+					doTask2(conn, stmt);
 					break;
 				case "6":
 					doTask3(conn, stmt);
@@ -217,14 +218,19 @@ public class Phase3 {
 					doTask4(conn, stmt);
 					break;
 				case "8":
+					doTask5(conn, stmt);
 					break;
 				case "9":
+					doTask6(conn, stmt);
 					break;
 				case "10":
+					doTask7(conn, stmt);
 					break;
 				case "11":
+					doTask8(conn, stmt);
 					break;
 				case "12":
+					doTask9(conn, stmt);
 					break;
 				}
 
