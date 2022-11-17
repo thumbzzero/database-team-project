@@ -209,6 +209,7 @@ public class Phase3 {
 					}
 					break;
 				case "5":
+					doTask2(conn, stmt);
 					break;
 				case "6":
 					doTask3(conn, stmt);
@@ -217,14 +218,19 @@ public class Phase3 {
 					doTask4(conn, stmt);
 					break;
 				case "8":
+					doTask5(conn, stmt);
 					break;
 				case "9":
+					doTask6(conn, stmt);
 					break;
 				case "10":
+					doTask7(conn, stmt);
 					break;
 				case "11":
+					doTask8(conn, stmt);
 					break;
 				case "12":
+					doTask9(conn, stmt);
 					break;
 				}
 
@@ -239,9 +245,39 @@ public class Phase3 {
 	}
 
 	// query 1-1
-	private static void doTask1_1(Connection conn, Statement stmt) {
+    private static void doTask1_1(Connection conn, Statement stmt){
+   
+        ResultSet rs = null;
 
-	}
+        try{
+		
+        	@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+            	String group_name = scan.nextLine();
+            	stmt = conn.createStatement();
+            	//query1-1
+           	 String sql = "Select u.id, u.name" +
+                         	"from users u, participate p"+
+                         	// 파라미터를 받는 부분
+                         	"where p.group_id = ' " +group_name+ " ' " +
+                         	"and u.id = p.participant ";
+            	rs = stmt.executeQuery(sql);
+            	System.out.println("<< query 1-1 result >>");
+            	System.out.println("User ID    |User Name");
+            	System.out.println("-----------------------------");
+            	while(rs.next()){
+                	String id = rs.getString(1);
+                	String name = rs.getString(2);
+                	System.out.println(String.format("%-10s|%s", id, name));
+            	}
+            	rs.close();
+
+            	System.out.println();
+        	}catch (SQLException e) {
+        		e.printStackTrace();
+        	}
+
+    	}
 
 	// query 1-2
 	private static void doTask1_2(Connection conn, Statement stmt) {
@@ -249,7 +285,7 @@ public class Phase3 {
 		ResultSet rs = null;
 
 		try {
-			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준으로)");
+			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준)");
 			@SuppressWarnings("resource")
 			Scanner scan = new Scanner(System.in);
 			String group_name = scan.nextLine();
@@ -257,12 +293,12 @@ public class Phase3 {
 			// ArrayList<String> group_name=new
 			// ArrayList<String>(Arrays.asList(total_group_name.split(" ")));
 			stmt = conn.createStatement();
-			// query1-1
+			
 			String sql = "Select distinct u.id, u.name " + "from users u, participate p " +
 			// 파라미터를 받는 부분
 					"where p.group_id in ('" + group_name + "') and u.id = p.participant ";
 			rs = stmt.executeQuery(sql);
-			System.out.println("<< query 1-1 result >>");
+			System.out.println("<< query 1-2 result >>");
 			System.out.println("User ID    |User Name");
 			System.out.println("-----------------------------");
 			while (rs.next()) {
@@ -279,6 +315,38 @@ public class Phase3 {
 		}
 
 	}
+	
+	//query 2
+	private static void doTask2(Connection conn, Statement stmt) {
+      // TODO Auto-generated method stub
+      		ResultSet rs = null;
+
+      		try {
+         		System.out.println("아이디를 입력하세요. 당신이 속해있는 그룹들의 이름을 알려드립니다.");
+         		System.out.print("아이디 : ");
+         		@SuppressWarnings("resource")
+         		Scanner scan = new Scanner(System.in);
+         		String myid = scan.nextLine();
+         		stmt = conn.createStatement();
+         
+         		String sql = "select group_id from users join participate on id=participant"
+               				+ " where users.id='" + myid + "'";
+         		rs = stmt.executeQuery(sql);
+         		System.out.println("<< query 2 result >>");
+         		System.out.println("Group ID");
+         		System.out.println("------------------");
+         		while (rs.next()) {
+            			String id = rs.getString(1);
+            			System.out.println(String.format("%-10s", id));
+         		}
+         		rs.close();
+
+         		System.out.println();
+
+      		} catch (SQLException e) {
+         		e.printStackTrace();
+      		}
+   	}
 
 	// query 3
 	private static void doTask3(Connection conn, Statement stmt) {
@@ -288,19 +356,18 @@ public class Phase3 {
 			stmt = conn.createStatement();
 			// 특정 기간의 질문 출력
 			System.out.println("조회하고 싶은 기간을 입력하세요.");
-			System.out.print("조회시작일(YYYYMMDD): ");
+			System.out.print("조회 시작일(YYYYMMDD): ");
 			Scanner scan = new Scanner(System.in);
 			String startSearch = scan.nextLine();
-			System.out.print("조회끝일(YYYYMMDD): ");
+			System.out.print("조회 마지막일(YYYYMMDD): ");
 			String endSearch = scan.nextLine();
 			String sql = "Select question_key, question_content" +
-			// from을 이렇게 길게 쓴 이유는??
 					" from (select question_key, question_content from question)" + "where question_key between '"
 					+ startSearch + "' and '" + endSearch + "' order by question_key";
 			rs = stmt.executeQuery(sql);
 			System.out.println("<< query 3 result >>");
 			System.out.println("question_date | question_content");
-			System.out.println("-----------------------------");
+			System.out.println("----------------------------------");
 			while (rs.next()) {
 				String date = rs.getString(1);
 				String content = rs.getString(2);
@@ -325,7 +392,7 @@ public class Phase3 {
 			Scanner scan = new Scanner(System.in);
 			String[] group_id = new String[2];
 
-			System.out.println("두 그룹 다 속해있는 이름을 알려드리겠습니다.  그룹의 이름을 입력하세요.");
+			System.out.println("두 그룹 다 속해있는 이름을 알려드리겠습니다. 첫번째 그룹의 이름을 입력하세요.");
 			group_id[0] = scan.nextLine();
 			System.out.println("두번째 그룹의 이름을 입력하세요.");
 			group_id[1] = scan.nextLine();
@@ -432,6 +499,55 @@ public class Phase3 {
 		}
 
 	}
+	
+	//query 5
+	private static void doTask5(Connection conn, Statement stmt) {
+      
+      		ResultSet rs = null;
+
+     		try {
+         		stmt = conn.createStatement();
+         // 특정 기간의 질문 출력
+         		System.out.println("당신의 아이디를 입력하세요.");
+         		Scanner scan = new Scanner(System.in);
+         		String idinput = scan.nextLine();
+        		String sql = "select vote_key, vote_name, group_id from vote"
+               			   + " where group_id in(select group_id from participate where participant='"+idinput+"')";
+         		rs = stmt.executeQuery(sql);
+         		System.out.println("현재 당신이 참여중인 그룹에서 진행중인 투표는 다음과 같습니다.");
+         		System.out.println("VOTE_KEY | VOTE_NAME | GROUP_ID");
+         		System.out.println("-----------------------------");
+         		while (rs.next()) {
+            			String vkey = rs.getString(1);
+            			String vname = rs.getString(2);
+            			String gid = rs.getString(3);
+            			System.out.println(String.format("%8s| %-15s| %s", vkey,vname,gid));
+         		}
+         		rs.close();
+         		ResultSet rs1 = null;
+         		System.out.println("투표의 키(VOTE_KEY)를 입력하시면 투표현황을 보여드립니다.");
+         		String vkey = scan.nextLine();
+         		sql = "select item_name as 항목 ,count(*) as 득표수 "
+               			+ "from item natural join pick "
+               			+ "group by vote_key, item_key, item_name "
+               			+ "having vote_key="+vkey
+               			+ "order by count(*) DESC";
+         		rs1 = stmt.executeQuery(sql);
+         		System.out.println(vkey+"의 결과는 다음과 같습니다.");
+         		System.out.println("항목           | 득표수");
+         		System.out.println("-----------------------------");
+         		while (rs1.next()) {
+            			String iname = rs1.getString(1);
+            			String count = rs1.getString(2);
+            			System.out.println(String.format("%-10s|%s", iname,count));
+         		}
+         		rs1.close();
+
+         		System.out.println();
+      		} catch (SQLException e) {
+         		e.printStackTrace();
+      		}
+   	}
 
 	// query 6
    private static void doTask6(Connection conn, Statement stmt) {
