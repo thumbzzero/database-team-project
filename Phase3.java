@@ -51,9 +51,9 @@ public class Phase3 {
 			stmt = conn.createStatement();
 			// Let's execute an SQL statement.
 			Scanner filepath = new Scanner(System.in);
-			System.out.println("이미 db가 구축되었다면 0을 아니라면 create파일의 경로를 입력하시면 table과 insert를 도와드리겠습니다.");
+			System.out.println("이미 db가 구축되었다면 0을, 구축되어있지 않다면 create파일의 경로를 입력하세요. table 생성과 insert를 도와드리겠습니다.");
 			System.out.println("\t(create파일의 경로의 예 : C:\\Users\\create.txt)");
-			System.out.print("입력하세요(0 or create파일의 경로) : ");
+			System.out.print("입력하세요(0 or create파일경로): ");
 			String fpath = filepath.next();
 			if (!(fpath.equals("0"))) {
 
