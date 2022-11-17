@@ -243,6 +243,7 @@ public class Phase3 {
 
 		
 	}
+	//query 1-2
 	private static void doTask1_2(Connection conn, Statement stmt) {
 		// TODO Auto-generated method stub
 			ResultSet rs = null;
@@ -311,7 +312,8 @@ public class Phase3 {
 		}
 
 	}
-
+	
+	//query 4
 	private static void doTask4(Connection conn, Statement stmt) {
 
 		ResultSet rs = null;
@@ -321,7 +323,7 @@ public class Phase3 {
 			Scanner scan = new Scanner(System.in);
 			String[] group_id = new String[2];
 
-			System.out.println("두 그룹 다 속해있는 이름을 알려드리겠습니다. 처음 그룹의 이름을 입력하세요.");
+			System.out.println("두 그룹 다 속해있는 이름을 알려드리겠습니다.  그룹의 이름을 입력하세요.");
 			group_id[0] = scan.nextLine();
 			System.out.println("두번째 그룹의 이름을 입력하세요.");
 			group_id[1] = scan.nextLine();
@@ -342,6 +344,49 @@ public class Phase3 {
 				String id = rs.getString(1);
 				String name = rs.getString(2);
 				System.out.println(String.format("%-11s|%-11s", id, name));
+			}
+			rs.close();
+
+			System.out.println();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	//query 9 -union
+    	private static void doTask9(Connection conn, Statement stmt) {
+
+		ResultSet rs = null;
+
+		try {
+			@SuppressWarnings("resource")
+			Scanner scan = new Scanner(System.in);
+			String[] group_id = new String[2];
+
+			System.out.println("두 그룹 중 한 그룹에 속한 멤버의 이름과 생일을 출력하겠습니다.");
+            		System.out.println("첫번째 그룹의 이름을 입력하세요.");
+			group_id[0] = scan.nextLine();
+			System.out.println("두번째 그룹의 이름을 입력하세요.");
+			group_id[1] = scan.nextLine();
+
+			stmt = conn.createStatement();
+			
+			String sql = "select u.birthday u.name" 
+                    			+"from users u, participate p, calendar c" 
+					+" where p.group_id = '" + group_id[0] + "'and p.group_id = c.group_id "
+					+ "and u.id = p.participant union select u.id, u.name "
+					+ "from users u, participate p, calendar c where p.group_id = '" + group_id[1] 
+					+ "'and p.group_id = c.group_id and u.id = p.participant";
+
+			rs = stmt.executeQuery(sql);
+			System.out.println("<< query 9 result >>");
+			System.out.println("User Name    |User Birthday");
+			System.out.println("------------------------------");
+			while (rs.next()) {
+				String name = rs.getString(1);
+				String date = rs.getString(2);
+				System.out.println(String.format("%-11s|%-11s", name, date));
 			}
 			rs.close();
 
