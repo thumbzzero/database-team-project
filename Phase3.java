@@ -158,6 +158,38 @@ public class Phase3 {
 					sql = "DELETE FROM USERS WHERE id = " + id;
 					break;
 				}
+				// query
+				case "4":
+					String group_num;
+    				System.out.println("그룹의 개수를 지정하세요. ");
+    				group_num = scanner.nextLine();
+    				if(group_num == "1"){
+       				//입력받는: 그룹명
+        				doTask1_1(conn, stmt);
+    				}
+    				//else //그룹이 두개 이상일때
+    				//{
+        				//doTask1_2(conn, stmt);
+    				//}
+					break;
+				case "5":
+					break;
+				case "6":
+					doTask3(conn, stmt);
+					break;
+				case "7":
+					break;
+				case "8":
+					break;
+				case "9":
+					break;
+				case "10":
+					break;
+				case "11":
+					break;
+				case "12":
+					break;
+				}
 				res = stmt.executeUpdate(sql); 
 				if(res == 0) 
 					System.out.println("insert was successfully created.");
@@ -171,51 +203,8 @@ public class Phase3 {
 			System.err.println("sql error = " + ex2.getMessage());
 			System.exit(1);
 		}
+	
 		
-		
-		
-		//query
-			Scanner scanner = new Scanner(System.in);
-			String num;
-			
-			while(true){
-				
-   
-		    		System.out.println("Query 번호를 입력하세요.");
-		    		System.out.println("1. 특정 그룹의 멤버 조회");
-		    		System.out.println("2. 내가 속한 그룹명 조희");
-		    		System.out.println("3. 특정 기간의 질문 출력");
-		    		System.out.println("4. 2가지 그룹에 모두 속한 멤버의 이름 출력");
-		    		System.out.println("5. 현재 투표상황 확인");
-		    		System.out.println("6. 답변자가 특정 수 이상인 질문 조희");
-		   			System.out.println("7. 특정 그룹의 특정투표 항목을 선택한 사람 수 출력");
-		    		System.out.println("8. 일기를 많이 작성한 그룹 랭킹 확인");
-		    		System.out.println("9. 2 그룹 중 하나 이상에 속한 멤버이름 출력");
-		    
-		    		num = scanner.nextLine();
-		    		//번호만 입력
-				
-				
-				switch(num){
-		        			case "1":
-		            				String group_num;
-		            				System.out.println("그룹의 개수를 지정하세요. ");
-		            				group_num = scanner.nextLine();
-		            				if(group_num == "1"){
-		               				//입력받는: 그룹명
-		                				doTask1_1(conn, stmt);
-		            				}
-		            				//else //그룹이 두개 이상일때
-		            				//{
-		                				//doTask1_2(conn, stmt);
-		            				//}
-		        			case "3":
-		            				doTask3(conn, stmt);
-
-		        				//case 9까지 생성해야함
-		            		
-					}
-		    	}
 	}
 			
 
