@@ -1,6 +1,7 @@
 -- 디비자자-Phase2-1.sql
 -- 디비자자 DDL
 
+
 CREATE TABLE USERS
 (
 id VARCHAR(20) NOT NULL,
