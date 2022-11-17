@@ -239,9 +239,38 @@ public class Phase3 {
 	}
 
 	// query 1-1
-	private static void doTask1_1(Connection conn, Statement stmt) {
+	private static void doTask1_1(Connection conn, Statement stmt){
+   
+        	ResultSet rs = null;
 
-	}
+        	try{
+        		@SuppressWarnings("resource")
+			Scanner scan = new Scanner(System.in);
+            	String group_name = scan.nextLine();
+            	stmt = conn.createStatement();
+            
+            	String sql = "Select u.id, u.name" +
+                             "from users u, participate p"+
+                         	// 파라미터를 받는 부분
+                             "where p.group_id = ' " +group_name+ " ' " +
+                             "and u.id = p.participant ";
+            	rs = stmt.executeQuery(sql);
+            	System.out.println("<< query 1-1 result >>");
+            	System.out.println("User ID    |User Name");
+            	System.out.println("-----------------------------");
+            	while(rs.next()){
+                	String id = rs.getString(1);
+                	String name = rs.getString(2);
+                	System.out.println(String.format("%-10s|%s", id, name));
+            	}
+            	rs.close();
+
+            	System.out.println();
+        	}catch (SQLException e) {
+        		e.printStackTrace();
+        	}
+
+    	}
 
 	// query 1-2
 	private static void doTask1_2(Connection conn, Statement stmt) {
@@ -249,7 +278,7 @@ public class Phase3 {
 		ResultSet rs = null;
 
 		try {
-			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준으로)");
+			System.out.println("조회할 그룹들의 그룹명을 입력하세요.(공백을 기준)");
 			@SuppressWarnings("resource")
 			Scanner scan = new Scanner(System.in);
 			String group_name = scan.nextLine();
@@ -257,12 +286,11 @@ public class Phase3 {
 			// ArrayList<String> group_name=new
 			// ArrayList<String>(Arrays.asList(total_group_name.split(" ")));
 			stmt = conn.createStatement();
-			// query1-1
 			String sql = "Select distinct u.id, u.name " + "from users u, participate p " +
 			// 파라미터를 받는 부분
 					"where p.group_id in ('" + group_name + "') and u.id = p.participant ";
 			rs = stmt.executeQuery(sql);
-			System.out.println("<< query 1-1 result >>");
+			System.out.println("<< query 1-2 result >>");
 			System.out.println("User ID    |User Name");
 			System.out.println("-----------------------------");
 			while (rs.next()) {
