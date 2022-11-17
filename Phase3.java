@@ -14,8 +14,8 @@ import java.util.Scanner;
 
 public class Phase3 {
 	public static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-	public static final String USER_UNIVERSITY = "hr";
-	public static final String USER_PASSWD = "hr";
+	public static final String USER_UNIVERSITY = "university";
+	public static final String USER_PASSWD = "comp322";
 
 	public static void main(String[] args) {
 		Connection conn = null; // Connection object
