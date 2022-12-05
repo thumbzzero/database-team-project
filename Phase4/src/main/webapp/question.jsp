@@ -41,12 +41,12 @@
 </style>
 </head>
 <body>
-	<h3><font size = "6">오늘만을 위한 새로운 질문을 생성해보세요!</font></h3>
+	<h3><font size = "6">�ㅻ��留��� ���� ��濡��� 吏�臾몄�� ���깊�대낫�몄��!</font></h3>
 	<h4>
 	
 			<% 
 				String serverIP = "localhost";
-				String strSID = "xe";
+				String strSID = "orcl";
 				String portNum = "1521";
 				String user = "university";
 				String pass = "comp322";
@@ -60,13 +60,13 @@
 				conn = DriverManager.getConnection(url,user,pass);
 			%>
 	
-			질문의 내용을 작성하세요 
+			吏�臾몄�� �댁�⑹�� ���깊���몄�� 
 			<br>
 			<br>
 			<input type="text" name="content">
 			<br>
 			<br>
-			질문의 키를 생성해 주세요 (숫자만 입력해주세요!) 
+			吏�臾몄�� �ㅻ�� ���깊�� 二쇱�몄�� (�レ��留� ���ν�댁＜�몄��!) 
 			<br>
 			<a href = "answer.jsp?name = 'questionkey' ">
 			<input type="text" name="questionkey">

@@ -7,17 +7,8 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<link href="https://fonts.googleapis.com/css?family=Gamja+Flower:400" rel="stylesheet">
+<link rel="stylesheet" href="./common.css" />
 <style>
-	* {
-		text-align: center;
-		font-weight: bold;
-		font-family: "Gamja Flower", sans-serif;
-	}
-	body {
-		background-image: url('./background.jpg');
-		background-size: cover;
-	}
 	h1 {
 		margin: 100px 0 70px 0;
 	}
