@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="./common.css" />
+<link href="https://fonts.googleapis.com/css?family=Gamja+Flower:400" rel="stylesheet">
+<style>
+	h1 {
+		margin: 100px 0 70px 0;
+	}
+	button {
+		border: none;
+		background-color: #5AC8C8;
+		border-radius: 5px;
+		padding: 10px;
+	}
+	button:hover {
+		color: white;
+	}
+	label {
+		margin: 10px;
+	}
+	input {
+		margin: 10px;
+		border-radius: 5px;
+	}
+	
+</style>
+</head>
+<body>
+
+	<h1><font size = "6">오늘만을 위한 새로운 질문을 생성해보세요!</font></h1>
+	<form method = get action = "question.jsp">
+			<h2>질문의 내용을 작성하세요 </h2>
+			<br>
+			<input type="text" name="content">
+			<br>
+			<h2>질문의 키를 생성해 주세요 (숫자만 입력해주세요!)</h2>
+			<br>
+			<input type="text" name="questionkey">
+			
+			<br>
+			<br>
+			<button>질문생성 완료!</button>
+	</form>
+
+</body>
+</html>
