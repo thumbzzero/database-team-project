@@ -1,0 +1,11 @@
+@charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower:400');
+* {
+		text-align: center;
+		font-weight: bold;
+		font-family: "Gamja Flower", sans-serif;
+	}
+body {
+		background-image: url('./background.jpg');
+		background-size: cover;
+}
