@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+ <form
+    action="./voteSet.jsp"
+    method="get"
+  >
+  <label for="titleVote">제목 : </label>
+  <input id="titleVote" name="title" type="text" value="title">
+  <table>
+    <tr>
+      <td>
+        <input id="firstItem" name="item1" type="text" placeholder="첫번째 투표항목을 입력하세요">
+      </td>
+    </tr>
+    <tr> 
+      <td><input id="secondItem" name="item2" type="text" placeholder="두번째 투표항목을 입력하세요">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="thirdItem" name="item3" type="text" placeholder="세번째 투표항목을 입력하세요">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="fourthItem" name="item4" type="text" placeholder="네번째 투표항목을 입력하세요">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="deadline" name="deadline" type="text" placeholder="마감일을 입력하세요">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="dateKey" name="dk" type="text" placeholder="datekey를 입력하세요" value="14">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="groupId" name="gid" type="text" placeholder="그룹아이디를 입력하세요" value="아우들">
+      </td>
+    </tr>
+    
+  </table>
+  <button type="submit">만들기</button>
+    <button type="reset">초기화</button>
+</form>
+</body>
+</html>
