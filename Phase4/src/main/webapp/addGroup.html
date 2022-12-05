@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>우리우정 012</title>
+<link rel="stylesheet" href="./common.css" />
+<style>
+	h1 {
+		margin: 100px 0 70px 0;
+	}
+	button {
+		border: none;
+		background-color: #5AC8C8;
+		border-radius: 5px;
+		padding: 10px;
+	}
+	button:hover {
+		color: white;
+	}
+	label {
+		margin: 10px;
+	}
+	input {
+		margin: 10px;
+		border-radius: 5px;
+	}
+	
+</style>
+</head>
+<body>
+	<h1>♡추가할 그룹 정보를 입력해주세요♡</h1>
+	<form method=get action="addGroup.jsp">
+		<label>group_id</label>
+		<input type='text' name='group_id' />
+		<br />
+		<label>password</label>
+		<input type='password' name='password' />
+		<br />
+		<label>시작 날짜를 입력하세요</label>
+		<input type='date' name='date' />
+		<br />
+		<button>만들기</button>
+	</form>
+</body>
+</html>
