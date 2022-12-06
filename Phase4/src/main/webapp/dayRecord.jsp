@@ -37,7 +37,7 @@
 	%>
 	<div>
 	<a href='addDiary.html'><button>오늘의 일기 생성하기</button></a>
-	<a href='answer.jsp'><button>오늘의 질문에 답하러 가기</button></a>
+	<a href='answerInput.jsp'><button>오늘의 질문에 답하러 가기</button></a>
 	<a href='voteRecent.jsp'><button>투표 조회/생성</button></a>
 	</div>
 </body>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Answer</title>
+<title>우리우정 012</title>
 <link rel="stylesheet" href="./common.css" />
 <link href="https://fonts.googleapis.com/css?family=Gamja+Flower:400" rel="stylesheet">
 <style>
@@ -33,15 +33,11 @@
 </style>
 </head>
 <body>
-
 <h1>[Today question]</h1>
 <br>
 
 	<h2>오늘의 질문은!?</h2>
-
-</body>
-<%--@include file = "question.jsp" --%> 
-		<%
+	<%
 		
 			String serverIP = "localhost";
 			String strSID = "orcl";
@@ -71,36 +67,17 @@
 			
 			
 			while(rs.next()){
-        			out.println("<h3>rs.getString(1)</h3>");
+        			out.println("<h3>" + rs.getString(1) + "</h3>");
 			}
        
 
 		%>
-	
-		
-		
-		<% 
-			String query2 = "";
-			query2 = "insert into answer values('" + userid + "' , " + questionkey + ", '" + myanswer + "')";
-						
-	
-			pstmt = conn.prepareStatement(query2);
-			rs = pstmt.executeQuery();
-			
-			
-			rs.close();
-    			pstmt.close();
-    			conn.close();
-
-		%>
-		
-		
-	<script type="text/javascript">
-		var changeUrl = '/Phase4/answer2.jsp'; 
-		var urlString = location.href;
-		alert('답변을 추가하였습니다.');
-		window.location.replace(changeUrl);
-	</script>
-
+	<form method="get" action="answer.jsp">
+			<h1>답변을 입력하세요!</h1>
+			<input type="text" name="myanswer">
+			<br>
+			<button>답변작성</button>
+			<br>
+		</form>
 </body>
 </html>

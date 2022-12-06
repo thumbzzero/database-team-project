@@ -53,24 +53,27 @@
 
     System.out.println(questionkey);
 
-    query = "select user_answer from Answer Where question_key = '" + questionkey + "'";
+    query = "select u.name, a.user_answer from users u, Answer a Where u.id=a.id and question_key = '" + questionkey + "'";
 
     pstmt = conn.prepareStatement(query);
     rs = pstmt.executeQuery();
 
     
-    out.println("---------------------------");
+    //out.println("---------------------------");
     
     ResultSetMetaData rsmd = rs.getMetaData();
     int cnt = rsmd.getColumnCount();
-    for(int i =1;i<=cnt;i++){
-        out.println("<th>"+rsmd.getColumnName(i)+"</th>");
-    }
+    //for(int i =1;i<=cnt;i++){
+    //    out.println("<th>"+rsmd.getColumnName(i)+"</th>");
+    //}
 
     while(rs.next()){
         out.println("<tr>");
-        out.println("<td>"+rs.getString(1)+"</td>");
-        out.println("</tr>");    
+        out.println("<td>"+rs.getString(1)+": </td>");
+        out.println("</tr>");   
+        out.println("<tr>");
+        out.println("<td>"+rs.getString(2)+"</td>");
+        out.println("</tr>"); 
     }
 
     rs.close();
