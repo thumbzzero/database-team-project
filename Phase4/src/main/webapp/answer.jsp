@@ -71,7 +71,7 @@
 			
 			
 			while(rs.next()){
-        			out.println("<h3>rs.getString(1)</h3>");
+        			out.println("<h3>" + rs.getString(1) + "</h3>");
 			}
        
 
