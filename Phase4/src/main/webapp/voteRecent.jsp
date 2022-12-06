@@ -33,17 +33,21 @@
 	pstmt = conn.prepareStatement(query);
 	pstmt.setString(1, groupid);
 	rs = pstmt.executeQuery();
-
+	
+	out.println("<form action='pickCurrent.jsp'>");
+	
 	out.println("<table border=\"1\">");
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int cnt = rsmd.getColumnCount();
 	String temp="-1";
 	String temp2="-1";
 	String cont="-1";
+	String vote_key="-1";
+	String itemK="-1";
 	int flag=1;
-	int count=-1;
+	int ccount=0;
+	int tcount=0;
 	while(rs.next()){
-		count++;
 		out.println("<tr>");
 		temp2=rs.getString(1);
 		if(!temp.equals(temp2))
@@ -51,7 +55,8 @@
 			if(flag==0)
 			{
 				out.println("</table>");
-				out.println("<table border=\"1\">");		
+				out.println("<table border=\"1\">");
+				ccount=0;
 			}
 			else
 				flag=0;
@@ -63,11 +68,14 @@
 			temp=temp2;
 		}
 		cont=rs.getString(7);
-		out.println("<td>"+cont+"</td>");
-		out.println("<td><input type='button' id='button1' onclick='button1_click("+cont+");' value='"+cont+"투표하기' /></td>");
-		out.println("</tr>");
+		itemK=rs.getString(6);
+		out.println("<td colspan='2'><label>"+cont+"투표하기"+itemK+"</label><input type='checkbox' name='checkB' value='"+itemK+"'></td>");
+		ccount++;
+		out.println("</form></tr>");
+		
 	}
 	out.println("</table>");
+	out.println("<button type='submit'>투표</button>");
 	out.println("<button type='button' onclick=\"location.href='./createVote.html'\">생성하기</button>");
 	rs.close();
 	pstmt.close();

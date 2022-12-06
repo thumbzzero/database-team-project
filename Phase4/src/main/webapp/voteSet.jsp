@@ -38,9 +38,8 @@
 	}
 	catch(NumberFormatException e1)
 	{
-		voteK= 400;
+		voteK= 420;
 	}
-	System.out.println(voteK);
 	query = "insert into vote values( ?, ?, ?, ?, ?)";
 	pstmt = conn.prepareStatement(query);
 	pstmt.setInt(1, voteK);
@@ -48,7 +47,6 @@
 	pstmt.setString(3, deadline);
 	pstmt.setString(4, datekey);
 	pstmt.setString(5, groupid);
-	System.out.println(query);
 	int res=pstmt.executeUpdate();
 	if (res>0) {
 		System.out.println("insert¼º°ø");
@@ -71,7 +69,6 @@
 		query = "insert into item values( ?, ?, ?)";
 		pstmt = conn.prepareStatement(query);
 		pstmt.setInt(1, itemK);
-		System.out.println(itemK);
 		pstmt.setString(2, s);
 		pstmt.setInt(3, voteK);
 		res=pstmt.executeUpdate();
@@ -92,5 +89,5 @@
 	pstmt.close();
 	conn.close();
 	%>
-%></body>
+</body>
 </html>
