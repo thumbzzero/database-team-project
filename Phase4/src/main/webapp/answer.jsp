@@ -44,7 +44,7 @@
 		<%
 		
 			String serverIP = "localhost";
-			String strSID = "xe";
+			String strSID = "orcl";
 			String portNum = "1521";
 			String user = "university";
 			String pass = "comp322";
@@ -70,8 +70,14 @@
 			
 			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next()){
+        			out.println("<h3>rs.getString(1)</h3>");
+			}
+       
+
 		%>
-		<h3>rs.getString(1)</h3>
 	
 		<form method="get" action="answer2.jsp">
 			<h1>답변을 입력하세요!</h1>
@@ -88,6 +94,11 @@
 	
 			pstmt = conn.prepareStatement(query2);
 			rs = pstmt.executeQuery();
+			
+			
+			rs.close();
+    			pstmt.close();
+    			conn.close();
 
 		%>
 		
