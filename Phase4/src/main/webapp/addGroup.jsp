@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>우리우정 012</title>
 </head>
 <body>	
 	<%
@@ -29,7 +29,7 @@
 	String password = request.getParameter("password");
 	String date = request.getParameter("date");
 	String createdAt = "To_date('" + date + "', 'yyyy-mm-dd')";
-	String user_id = "";
+	String user_id = "hyejjang";
 	String sql = "";
 	
 	try {
@@ -41,10 +41,10 @@
 		System.out.println(res + " row inserted.");
 		
 		sql = "insert into participate values('" + group_id + "', '" + user_id + "')";
-		/* System.out.println(sql);
+		System.out.println(sql);
 		
 		res = stmt.executeUpdate(sql);
-		System.out.println(res + " row inserted.");*/
+		System.out.println(res + " row inserted.");
 		
 		
 		// conn.commit();			

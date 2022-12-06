@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¿ì¸®¿ìÁ¤ 012</title>
+<meta charset="utf-8">
+<title>ìš°ë¦¬ìš°ì • 012</title>
 <link rel="stylesheet" href="./common.css" />
 <style>
 	h1 {
@@ -33,17 +35,22 @@
 </style>
 </head>
 <body>
-	<h1>2022³â 09¿ù</h1>
+<%
+	String selectedGroup = request.getParameter("selectedGroup");
+	session.setAttribute("selectedGroup", selectedGroup);
+	System.out.println((String)session.getAttribute("selectedGroup"));
+%>
+<h1>2022ë…„ 09ì›”</h1>
 	<form method=get action="dayRecord.jsp">
 	<table>
 		<tr>
-			<th>ÀÏ</th>
-			<th>¿ù</th>
-			<th>È­</th>
-			<th>¼ö</th>
-			<th>¸ñ</th>
-			<th>±Ý</th>
-			<th>Åä</th>	
+			<th>ì¼</th>
+			<th>ì›”</th>
+			<th>í™”</th>
+			<th>ìˆ˜</th>
+			<th>ëª©</th>
+			<th>ê¸ˆ</th>
+			<th>í† </th>	
 		</tr>
 		<tr>
 			<td></td>

@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>ìš°ë¦¬ìš°ì • 012</title>
 <link rel="stylesheet" href="./common.css" />
 <style>
 	h1 {
@@ -20,7 +20,7 @@
 		width: 200px;
 		height: 120px;
 	}
-	button:hover {
+	input:hover {
 		color: white;
 	}
 	a {
@@ -28,13 +28,20 @@
 		color: black;
 		font-size: 24px;
 	}
-	
+	input {
+		border: none;
+		background: none;
+		cursor: pointer;
+		font-size: 28px;
+	}
 	
 </style>
 </head>
 <body>
-	<h1>¾î´À Ä¶¸°´õ¿¡ Á¢¼ÓÇÏ½Ã°Ú½À´Ï±î?</h1>
+	<h1>ì–´ëŠ ìº˜ë¦°ë”ì— ì ‘ì†í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</h1>
 	<%
+	session.setAttribute("num", "50");
+	
 	String serverIP = "localhost";
 	String strSID = "orcl";
 	String portNum = "1521";
@@ -48,26 +55,20 @@
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	conn = DriverManager.getConnection(url, user, pass);
 	
-	/*
-	String query = "select count(*) from users u, participate p where u.id = p.participant";
+	
+	String query = "select p.group_id from users u, participate p where u.id = p.participant and u.id = 'hyejjang'";
 	
 	pstmt = conn.prepareStatement(query);
 	rs = pstmt.executeQuery();
 	
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int cnt = rsmd.getColumnCount();
-	
-	for (int i=1; i <= cnt; i++) {
-		out.println("<button>"+rsmd.getColumnName(i)+"</button>");
+	out.println("<form method=get action='calendar.jsp'>");
+	while (rs.next()) {
+		out.println("<button><input name='selectedGroup' type='submit' value='" + rs.getString(1) + "' /></button>");
 	}
-	*/
+	out.println("</form>");
 	
 	%>
-	<button>
-		<a href='/calendar'>
-			calendar name
-		</a>
-	</button>
-		
 </body>
 </html>
