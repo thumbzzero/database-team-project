@@ -40,6 +40,9 @@
 		width: 120px;
 		height: 50px;
 	}
+	.makeGroup:hover {
+		color: white;
+	}
 </style>
 </head>
 <body>

@@ -21,6 +21,9 @@
 		font-size: 1.7rem;
 		margin: 20px;
 	}
+	button:hover {
+		color: white;
+	}
 </style>
 </head>
 <body>
