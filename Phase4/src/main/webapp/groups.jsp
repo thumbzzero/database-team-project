@@ -34,7 +34,12 @@
 		cursor: pointer;
 		font-size: 28px;
 	}
-	
+	.makeGroup {
+		background-color: #7DEBEB;
+		margin-top: 60px;
+		width: 120px;
+		height: 50px;
+	}
 </style>
 </head>
 <body>
@@ -70,5 +75,6 @@
 	out.println("</form>");
 	
 	%>
+	<a href="addGroup.html" class='makeGroup'><button class='makeGroup'>그룹 만들러 가기</button></a>
 </body>
 </html>
