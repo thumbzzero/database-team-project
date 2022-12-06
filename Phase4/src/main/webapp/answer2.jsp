@@ -48,13 +48,12 @@
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	conn = DriverManager.getConnection(url, user, pass);
 
-    String date = (String)session.getAttribute("date");
-    questionkey = "202209" + date;
+    String questionkey = (String)session.getAttribute("clickedDate");
 
 
     System.out.println(questionkey);
 
-    query = "select user_answer from Answer Where question_key = " + questionkey;
+    query = "select user_answer from Answer Where question_key = '" + questionkey + "'";
 
     pstmt = conn.prepareStatement(query);
     rs = pstmt.executeQuery();
