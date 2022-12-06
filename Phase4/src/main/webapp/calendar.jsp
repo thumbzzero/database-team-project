@@ -40,8 +40,8 @@
 <body>
 <%
 	String selectedGroup = request.getParameter("selectedGroup");
+	System.out.println(selectedGroup);
 	session.setAttribute("selectedGroup", selectedGroup);
-	System.out.println((String)session.getAttribute("selectedGroup"));
 %>
 <h1>2022년 09월</h1>
 	<form method=get action="dayRecord.jsp">

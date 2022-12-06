@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!-- import JDBC package -->
-<%@ page language="java" import="java.text.*, java.sql.*"%>
+<%@ page language="java" import="java.text.*, java.sql.*, java.util.Random"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,9 +29,9 @@
 
 	String title = request.getParameter("title");
 	String deadline = request.getParameter("deadline");
-	String datekey = request.getParameter("dk");
-	String groupid = request.getParameter("gid");
-
+	String groupid = (String)session.getAttribute("selectedGroup");
+    String datekey = (String)session.getAttribute("num");
+	System.out.println(groupid+datekey);
 	int voteK;
 	try{
 		String a = (String)session.getAttribute("voteK");
@@ -39,7 +39,10 @@
 	}
 	catch(NumberFormatException e1)
 	{
-		voteK= 420;
+		Random random = new Random();
+		voteK = random.nextInt(100000000) + 70;
+		session.setAttribute("num", Integer.toString(voteK));
+		System.out.println("보트키:" +voteK);
 	}
 	query = "insert into vote values( ?, ?, ?, ?, ?)";
 	pstmt = conn.prepareStatement(query);
@@ -48,6 +51,9 @@
 	pstmt.setString(3, deadline);
 	pstmt.setString(4, datekey);
 	pstmt.setString(5, groupid);
+	System.out.println("그룹id:" +groupid);
+	System.out.println("date:" +datekey);
+	
 	int res=pstmt.executeUpdate();
 	if (res>0) {
 		System.out.println("insert성공");
@@ -61,7 +67,7 @@
 	item[2] = request.getParameter("item3");
 	item[3] = request.getParameter("item4");
 	
-	int itemK=30+voteK;
+	int itemK=voteK;
 	for(String s : item)
 	{
 		if(s.length()==0)
@@ -80,11 +86,9 @@
 			System.out.println("Iinsert실패");
 		itemK+=1;
 	}
-	session.setAttribute("gid", groupid);
 	voteK+=4;
 	session.setAttribute("voteK", String.valueOf(voteK));
 	
-	//response.sendRedirect("searchview.jsp");
 	response.sendRedirect("voteRecent.jsp");
 	
 	pstmt.close();

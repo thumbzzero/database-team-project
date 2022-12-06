@@ -51,7 +51,7 @@
 	conn = DriverManager.getConnection(url, user, pass);
 	request.setCharacterEncoding("EUC-KR");
 
-	String groupid = (String)session.getAttribute("gid");
+	String groupid = (String)session.getAttribute("selectedGroup");
 
 	query = "SELECT * FROM vote natural join item WHERE group_id=? order by deadline,vote_key";
 	pstmt = conn.prepareStatement(query);
@@ -100,7 +100,7 @@
 	}
 	out.println("</table>");
 	out.println("<button type='submit'>투표</button>");
-	out.println("<button type='button' onclick=\"location.href='./createVote.html'\">생성</button>");
+	out.println("<button type='button' onclick=\"location.href='./createVote.jsp'\">생성</button>");
 	rs.close();
 	pstmt.close();
 	conn.close();

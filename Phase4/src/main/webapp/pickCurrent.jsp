@@ -54,7 +54,7 @@
 		}
 	}
 	//type8
-	String groupid = (String)session.getAttribute("gid");
+	String groupid = (String)session.getAttribute("selectedGroup");
 	query = "select vote_name, item_name, name "+
 			"from((item natural join vote )natural join pick) join users on user_id=id "+
 			"where vote_key in ( select vote_key from item natural join vote where group_id=?) "+
@@ -75,14 +75,29 @@
 	while(rs.next()){
 		out.println("<tr>");
 		temp2=rs.getString(1);
+		if(!temp.equals(temp2))
+		{
+			if(flag==0)
+			{
+				out.println("</table>");
+				
+				out.println("<table border=\"1\">");
+				for(int i=1;i <= cnt;i++){
+					out.println("<th>"+rsmd.getColumnName(i)+"</th>");
+				}
+				out.println("<tr>");
+			}
+			else
+				flag=0;
+			temp=temp2;
+		}
 		out.println("<td>"+temp2+"</td>");			
 		out.println("<td>"+rs.getString(2)+"</td>");
 		out.println("<td>"+rs.getString(3)+"</td>");
 		out.println("</tr>");
 			
-		//out.println("<td colspan='2'><label>"+cont+"투표하기"+itemK+"</label><input type='checkbox' name='checkB' value='"+itemK+"'></td>");
-		out.println("</tr>");
 	}
+	out.println("</table>");
 	out.println("<button type='button' onclick=\"location.href='./voteRecent.jsp'\">투표로 돌아가기</button>");
 
 	pstmt.close();

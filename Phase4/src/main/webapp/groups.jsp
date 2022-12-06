@@ -49,7 +49,7 @@
 	<h1>어느 캘린더에 접속하시겠습니까?</h1>
 	<%
 	Random random = new Random();
-	int number = random.nextInt(100000000) + 70;
+	int number = random.nextInt(10000000) + 70;
 	session.setAttribute("num", Integer.toString(number));
 	
 	String serverIP = "localhost";
@@ -72,10 +72,10 @@
 	rs = pstmt.executeQuery();
 	
 	ResultSetMetaData rsmd = rs.getMetaData();
-	int cnt = rsmd.getColumnCount();
 	out.println("<form method=get action='calendar.jsp'>");
 	while (rs.next()) {
-		out.println("<button><input name='selectedGroup' type='submit' value='" + rs.getString(1) + "' /></button>");
+		String temp=rs.getString(1);
+		out.println("<button name='selectedGroup' value='" + temp + "'><input name='selectedGroup' type='submit' value='" + temp + "'></button>");
 	}
 	out.println("</form>");
 	

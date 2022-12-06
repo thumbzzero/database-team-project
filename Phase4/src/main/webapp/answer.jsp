@@ -64,7 +64,6 @@
 			String myanswer = request.getParameter("myanswer");
 			
 			query = "select question_content from Question where question_key = '" + questionkey + "'";
-			System.out.println(query);
 			
 			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -81,15 +80,20 @@
 		
 		<% 
 			String query2 = "";
-			query2 = "insert into answer values('" + userid + "' , " + questionkey + ", '" + myanswer + "')";
-						
-	
-			pstmt = conn.prepareStatement(query2);
-			rs = pstmt.executeQuery();
+			
+			try{
+				query2 = "insert into answer values('" + userid + "' , " + questionkey + ", '" + myanswer + "')";
+				pstmt = conn.prepareStatement(query2);
+				rs = pstmt.executeQuery();
 			
 			
-			rs.close();
-    			pstmt.close();
+				rs.close();
+			}
+			catch(SQLIntegrityConstraintViolationException e1)
+			{
+				;
+			}
+				pstmt.close();
     			conn.close();
 
 		%>
