@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!-- import JDBC package -->
-<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" import="java.text.*, java.sql.*, java.util.Random" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +48,9 @@
 <body>
 	<h1>어느 캘린더에 접속하시겠습니까?</h1>
 	<%
-	session.setAttribute("num", "50");
+	Random random = new Random();
+	int number = random.nextInt(100000000) + 70;
+	session.setAttribute("num", Integer.toString(number));
 	
 	String serverIP = "localhost";
 	String strSID = "orcl";

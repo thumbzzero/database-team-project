@@ -56,7 +56,7 @@
 	<script type="text/javascript">
 		var changeUrl = '/Phase4/groups.jsp'; // 기본 URL로 사이트 접속 시 변경하고 싶은 URL
 		var urlString = location.href;
-		alert('일기가 추가되었습니다.');
+		alert('그룹이 추가되었습니다.');
 		window.location.replace(changeUrl);
 	</script>
 </body>

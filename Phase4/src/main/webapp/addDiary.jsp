@@ -65,11 +65,13 @@
 	System.out.println(sql);
 	int res = stmt.executeUpdate(sql);
 	System.out.println(res + " row inserted.");
+	
+	session.setAttribute("diary_key", diary_key);
 %>
 	<script type="text/javascript">
 		var changeUrl = '/Phase4/showDiary.jsp'; // 기본 URL로 사이트 접속 시 변경하고 싶은 URL
 		var urlString = location.href;
-		alert('그룹이 추가되었습니다.');
+		alert('일기가 추가되었습니다.');
 		window.location.replace(changeUrl);
 	</script>
 </body>

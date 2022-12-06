@@ -32,6 +32,9 @@
 		cursor: pointer;
 		font-size: 20px;
 	}
+	input:hover {
+		color: red;
+	}
 </style>
 </head>
 <body>
