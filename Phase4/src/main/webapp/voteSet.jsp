@@ -84,7 +84,7 @@
 	session.setAttribute("voteK", String.valueOf(voteK));
 	
 	//response.sendRedirect("searchview.jsp");
-	pageContext.forward("voteRecent.jsp");
+	response.sendRedirect("voteRecent.jsp");
 	
 	pstmt.close();
 	conn.close();
