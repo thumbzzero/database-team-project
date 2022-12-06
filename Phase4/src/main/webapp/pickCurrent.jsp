@@ -1,12 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Repeating Lab</title>
+<meta charset="utf-8">
+<title>ìš°ë¦¬ìš°ì • 012</title>
+<link rel="stylesheet" href="./common.css" />
+<style>
+	table {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	button {
+		margin-top: 50px;
+		margin-bottom: 30px;
+	}
+</style>
 </head>
 <body>
 	<%
@@ -24,7 +35,7 @@
 	ResultSet rs;
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	conn = DriverManager.getConnection(url, user, pass);
-	request.setCharacterEncoding("EUC-KR");
+	request.setCharacterEncoding("utf-8");
 
 	String[] items = request.getParameterValues("checkB");
 	if(items != null) {
@@ -49,7 +60,7 @@
 			"where vote_key in ( select vote_key from item natural join vote where group_id=?) "+
 			"order by vote_key,item_key";
 	pstmt = conn.prepareStatement(query);
-	pstmt.setString(1, groupid);//±×·ì¾ÆÀÌµğ
+	pstmt.setString(1, groupid);//ê·¸ë£¹ì•„ì´ë””
 	rs = pstmt.executeQuery();
 	
 	out.println("<table border=\"1\">");
@@ -69,10 +80,10 @@
 		out.println("<td>"+rs.getString(3)+"</td>");
 		out.println("</tr>");
 			
-		//out.println("<td colspan='2'><label>"+cont+"ÅõÇ¥ÇÏ±â"+itemK+"</label><input type='checkbox' name='checkB' value='"+itemK+"'></td>");
+		//out.println("<td colspan='2'><label>"+cont+"íˆ¬í‘œí•˜ê¸°"+itemK+"</label><input type='checkbox' name='checkB' value='"+itemK+"'></td>");
 		out.println("</tr>");
 	}
-	out.println("<button type='button' onclick=\"location.href='./voteRecent.jsp'\">ÅõÇ¥·Î µ¹¾Æ°¡±â</button>");
+	out.println("<button type='button' onclick=\"location.href='./voteRecent.jsp'\">íˆ¬í‘œë¡œ ëŒì•„ê°€ê¸°</button>");
 
 	pstmt.close();
 	conn.close();

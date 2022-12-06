@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Repeating Lab</title>
+<meta charset="utf-8">
+<title>鞖半Μ鞖办爼 012</title>
+<link rel="stylesheet" href="./common.css" />
 </head>
 <body>
 	<%
@@ -24,7 +25,7 @@
 	ResultSet rs;
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	conn = DriverManager.getConnection(url, user, pass);
-	request.setCharacterEncoding("EUC-KR");
+	request.setCharacterEncoding("utf-8");
 
 	String title = request.getParameter("title");
 	String deadline = request.getParameter("deadline");
@@ -49,10 +50,10 @@
 	pstmt.setString(5, groupid);
 	int res=pstmt.executeUpdate();
 	if (res>0) {
-		System.out.println("insert己傍");
+		System.out.println("insert靹标车");
 
 	} else
-		System.out.println("insert角菩");
+		System.out.println("insert鞁ろ尐");
 
 	String[] item=new String[4];
 	item[0] = request.getParameter("item1");
@@ -73,10 +74,10 @@
 		pstmt.setInt(3, voteK);
 		res=pstmt.executeUpdate();
 		if (res>0) {
-			System.out.println("Iinsert己傍");
+			System.out.println("Iinsert靹标车");
 
 		} else
-			System.out.println("Iinsert角菩");
+			System.out.println("Iinsert鞁ろ尐");
 		itemK+=1;
 	}
 	session.setAttribute("gid", groupid);

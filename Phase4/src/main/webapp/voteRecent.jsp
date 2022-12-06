@@ -1,15 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Repeating Lab</title>
+<meta charset="utf-8">
+<title>ìš°ë¦¬ìš°ì • 012</title>
+<link rel="stylesheet" href="./common.css" />
+<style>
+	body {
+		margin-top: 100px;
+		font-size: 32px;
+	}
+	button {
+		margin-top: 100px;
+		border: none;
+		background-color: #5AC8C8;
+		border-radius: 5px;
+		padding: 10px;
+		width: 100px;
+		height: 50px;
+		font-size: 24px;
+	}
+	button:hover {
+		color: white;
+	}
+	table {
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
 </head>
 <body>
-ÅõÇ¥ÇÒ Ç×¸ñÀ» Å¬¸¯ÇÏ¼¼¿ä!
+íˆ¬í‘œí•  í•­ëª©ì„ í´ë¦­í•˜ì„¸ìš”!
 	<%
 	String serverIP = "localhost";
 	String strSID = "orcl";
@@ -69,14 +93,14 @@
 		}
 		cont=rs.getString(7);
 		itemK=rs.getString(6);
-		out.println("<td colspan='2'><label>"+cont+"ÅõÇ¥ÇÏ±â"+itemK+"</label><input type='checkbox' name='checkB' value='"+itemK+"'></td>");
+		out.println("<td colspan='2'><label>"+cont+"íˆ¬í‘œí•˜ê¸°"+"</label><input type='checkbox' name='checkB' value='"+itemK+"'></td>");
 		ccount++;
 		out.println("</form></tr>");
 		
 	}
 	out.println("</table>");
-	out.println("<button type='submit'>ÅõÇ¥</button>");
-	out.println("<button type='button' onclick=\"location.href='./createVote.html'\">»ı¼ºÇÏ±â</button>");
+	out.println("<button type='submit'>íˆ¬í‘œ</button>");
+	out.println("<button type='button' onclick=\"location.href='./createVote.html'\">ìƒì„±</button>");
 	rs.close();
 	pstmt.close();
 	conn.close();
