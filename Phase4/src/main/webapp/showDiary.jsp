@@ -31,7 +31,7 @@
 	conn = DriverManager.getConnection(url, user, pass);
 	
 	String diary_key = (String)session.getAttribute("diary_key");
-	String query = "select id, diary_content from diary where id='hyejjang' and diary_key = " + diary_key;
+	String query = "select u.name, d.diary_content from diary d, user u where u.id = 'hyejjang' and u.id= d.id and d.diary_key =  " + diary_key;
 	
 	pstmt = conn.prepareStatement(query);
 	rs = pstmt.executeQuery();
