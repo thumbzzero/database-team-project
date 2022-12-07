@@ -60,9 +60,9 @@
 	String id = "hyejjang";
 	String group_id = (String)session.getAttribute("selectedGroup");
 	
-	String query = "select date_key from day_record where date_key = " + diary_key;
-	pstmt = conn.prepareStatement(query);
-	rs = pstmt.executeQuery();
+	//String query = "select date_key from day_record where date_key = " + diary_key;
+	//pstmt = conn.prepareStatement(query);
+	//rs = pstmt.executeQuery();
 	
 	int res=0;
 	
