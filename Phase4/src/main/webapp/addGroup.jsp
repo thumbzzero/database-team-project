@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¿ì¸®¿ìÁ¤ 012</title>
+<meta charset="utf-8">
+<title>ìš°ë¦¬ìš°ì • 012</title>
 </head>
 <body>	
 	<%
@@ -54,9 +54,9 @@
 	}
 	%>
 	<script type="text/javascript">
-		var changeUrl = '/Phase4/groups.jsp'; // ±âº» URL·Î »çÀÌÆ® Á¢¼Ó ½Ã º¯°æÇÏ°í ½ÍÀº URL
+		var changeUrl = '/Phase4/groups.jsp'; // ê¸°ë³¸ URLë¡œ ì‚¬ì´íŠ¸ ì ‘ì† ì‹œ ë³€ê²½í•˜ê³  ì‹¶ì€ URL
 		var urlString = location.href;
-		alert('±×·ìÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù.');
+		alert('ê·¸ë£¹ì´ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤.');
 		window.location.replace(changeUrl);
 	</script>
 </body>

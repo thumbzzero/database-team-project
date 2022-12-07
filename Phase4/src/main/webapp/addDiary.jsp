@@ -34,7 +34,7 @@
 	
 	
 	String sql = "";
-	
+		
 	
 	
 	String diary_key = Integer.toString(num);
