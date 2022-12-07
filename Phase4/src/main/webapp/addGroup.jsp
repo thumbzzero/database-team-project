@@ -52,6 +52,8 @@
 		System.err.println("sql error = " + ex2.getMessage());
 		System.exit(1);
 	}
+
+	conn.close();
 	%>
 	<script type="text/javascript">
 		var changeUrl = '/Phase4/groups.jsp'; // 기본 URL로 사이트 접속 시 변경하고 싶은 URL

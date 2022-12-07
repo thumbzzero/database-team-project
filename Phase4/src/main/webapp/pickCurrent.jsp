@@ -99,7 +99,7 @@
 	}
 	out.println("</table>");
 	out.println("<button type='button' onclick=\"location.href='./voteRecent.jsp'\">투표로 돌아가기</button>");
-
+	rs.close();
 	pstmt.close();
 	conn.close();
 	%>

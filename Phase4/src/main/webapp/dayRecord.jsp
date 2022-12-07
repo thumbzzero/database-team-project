@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!-- import JDBC package -->
-<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" import="java.text.*, java.sql.*, java.util.Random" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,52 +54,41 @@
 	}
 	session.setAttribute("clickedDate", clickedDate);
 	
+	Random random = new Random();
+	int number = random.nextInt(10000000) + 70;
+	session.setAttribute("num", Integer.toString(number));
+	
 	String sql = "";
-	String str_num = (String)session.getAttribute("num");
-	String diary_key = Integer.toString(Integer.parseInt(str_num));
+	String diary_key = Integer.toString(number);
 	String id = "hyejjang";
 	String group_id = (String)session.getAttribute("selectedGroup");
 	
-	//String query = "select date_key from day_record where date_key = " + diary_key;
-	//pstmt = conn.prepareStatement(query);
-	//rs = pstmt.executeQuery();
 	
 	int res=0;
 	
 	sql = "insert into day_record values(" + diary_key + ", To_date('" 
 			+ clickedDate + "', 'yyyy-mm-dd'), NULL, NULL, 1, '" + group_id + "', " + clickedDate  + ")";
-	System.out.println(str_num);
+
 	System.out.println(sql);
 	try{
 		res = stmt.executeUpdate(sql);
 	}
 	catch(SQLIntegrityConstraintViolationException e1)
 	{
-		sql="update day_record set  date_key="+diary_key+ " where question_key="+clickedDate+" and group_id='"+group_id+"'";
+		sql="select date_key from day_record where question_key="+clickedDate+" and group_id='"+group_id+"'";
 		System.out.println(sql);
-		res = stmt.executeUpdate(sql);
-		System.out.println("업테이트 함 day_record. date_key는 "+diary_key);
-
-	}
-	/*try{
-	sql="update day_record set date_key="+diary_key+ " where question_key="+clickedDate+" and group_id='"+group_id+"'";
-	System.out.println("diary_key : "+str_num);
-	System.out.println(sql);
-	res = stmt.executeUpdate(sql);
-	System.out.println("업테이트 함 day_record. date_key는 "+diary_key);
-	}
-	catch(SQLIntegrityConstraintViolationException e1)
-	{
-		sql = "insert into day_record values(" + diary_key + ", To_date('" 
-				+ clickedDate + "', 'yyyy-mm-dd'), NULL, NULL, 1, '" + group_id + "', " + clickedDate  + ")";
-		System.out.println(str_num);
-		System.out.println(sql);
-		res = stmt.executeUpdate(sql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()){
+			session.setAttribute("num", rs.getString(1));
+		}
+		System.out.println("원래 있던 day_record 받아오기. day_record. date_key는 "+(String)session.getAttribute("num"));
+		rs.close();
+		pstmt.close();
 		
 	}
-*/	
 	System.out.println(res + " row inserted.");
-
+	conn.close();
 	%>
 	<div>
 	<a href='addDiary.html'><button>오늘의 일기 생성하기</button></a>

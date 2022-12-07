@@ -28,13 +28,12 @@
 	stmt = conn.createStatement();
 
 	String str_num = (String)session.getAttribute("num");
+	System.out.println(str_num);
 	int num = Integer.parseInt(str_num);
-	num++;
-	session.setAttribute("num", Integer.toString(num));
 	
 	
 	String sql = "";
-		
+	
 	
 	
 	String diary_key = Integer.toString(num);
@@ -52,13 +51,6 @@
 	while (rs.next()) {
 		cnt++;
 	}
-	if (cnt == 0) {
-		sql = "insert into day_record values(" + diary_key + ", To_date('" 
-				+ DIARY_date + "', 'yyyy-mm-dd'), NULL, NULL, 1, '" + group_id + "', " + DIARY_date  + ")";
-		System.out.println(sql);
-		int res = stmt.executeUpdate(sql);
-		System.out.println(res + " row inserted.");
-	}
 	
 	sql = "insert into Diary values(" + diary_key + ", '" + diary_content + 
 			"',  To_date('" + DIARY_date + "', 'yyyy-mm-dd'),'" + id + "'," + diary_key +")";
@@ -67,6 +59,10 @@
 	System.out.println(res + " row inserted.");
 	
 	session.setAttribute("diary_key", diary_key);
+	
+	pstmt.close();
+	conn.close();
+
 %>
 	<script type="text/javascript">
 		var changeUrl = '/Phase4/showDiary.jsp'; // 기본 URL로 사이트 접속 시 변경하고 싶은 URL

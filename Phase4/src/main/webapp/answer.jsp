@@ -93,6 +93,7 @@
 			{
 				;
 			}
+			rs.close();
 				pstmt.close();
     			conn.close();
 

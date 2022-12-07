@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!-- import JDBC package -->
-<%@ page language="java" import="java.text.*, java.sql.*, java.util.Random" %>
+<%@ page language="java" import="java.text.*, java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,9 +48,6 @@
 <body>
 	<h1>어느 캘린더에 접속하시겠습니까?</h1>
 	<%
-	Random random = new Random();
-	int number = random.nextInt(10000000) + 70;
-	session.setAttribute("num", Integer.toString(number));
 	
 	String serverIP = "localhost";
 	String strSID = "orcl";
@@ -78,7 +75,9 @@
 		out.println("<button name='selectedGroup' value='" + temp + "'><input name='selectedGroup' type='submit' value='" + temp + "'></button>");
 	}
 	out.println("</form>");
-	
+	rs.close();
+	pstmt.close();
+	conn.close();
 	%>
 	<a href="addGroup.html" class='makeGroup'><button class='makeGroup'>그룹 만들러 가기</button></a>
 </body>

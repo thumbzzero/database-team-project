@@ -69,7 +69,9 @@
 			while(rs.next()){
         			out.println("<h3>" + rs.getString(1) + "</h3>");
 			}
-       
+			rs.close();
+			pstmt.close();
+			conn.close();
 
 		%>
 	<form method="get" action="answer.jsp">
